@@ -1,0 +1,75 @@
+﻿<Window x:Class="BookLendingSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookLendingSystem"
+        mc:Ignorable="d"
+        Title="メイン画面" Height="400" Width="450">
+    <Grid>
+        <!-- 背景画像を設定 -->
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <!-- 行と列の定義 -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- 図書館名 -->
+            <RowDefinition Height="Auto"/>
+            <!-- アルファベット名 -->
+            <RowDefinition Height="1*"/>
+            <!-- ボタンエリア -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <!-- 左側エリア -->
+            <ColumnDefinition Width="1*"/>
+            <!-- 右側エリア -->
+        </Grid.ColumnDefinitions>
+
+        <!-- 図書館名 -->
+        <TextBlock Text="○○○○図書館" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0" Grid.Row="0" Grid.ColumnSpan="2">
+            <TextBlock.Background>
+                <SolidColorBrush Color="#66000000"/>
+                <!-- 半透明の背景を追加 -->
+            </TextBlock.Background>
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="White"/>
+                <!-- テキスト色を白に変更 -->
+            </TextBlock.Foreground>
+        </TextBlock>
+
+        <!-- 図書館名のアルファベット -->
+        <TextBlock Text="○○○ academy library" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">
+            <TextBlock.Background>
+                <SolidColorBrush Color="#66000000"/>
+                <!-- 半透明の背景を追加 -->
+            </TextBlock.Background>
+            <TextBlock.Foreground>
+                <SolidColorBrush Color="White"/>
+                <!-- テキスト色を白に変更 -->
+            </TextBlock.Foreground>
+        </TextBlock>
+
+        <!-- 貸出ボタン -->
+        <Button Content="貸出" VerticalAlignment="Top" FontSize="20" Margin="20,78,20,0" Grid.Row="2" Grid.Column="0"
+                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="51" Click="LendingButton_Click">
+        </Button>
+
+        <!-- 返却ボタン -->
+        <Button Content="返却" VerticalAlignment="Top" FontSize="20" Margin="20,78,20,0" Grid.Row="2" Grid.Column="1"
+                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="51" Click="ReturnButton_Click">
+        </Button>
+
+        <!-- 管理貸出権限ボタン -->
+        <Button Content="管理貸出権限" VerticalAlignment="Top" FontSize="20" Margin="20,160,20,0" Grid.Row="2" Grid.Column="0"
+                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="59" Click="LoanAdministratorPrivilegesButton_Click"/>
+
+
+        <!-- 管理返却権限ボタン -->
+        <Button Content="管理返却権限" VerticalAlignment="Top" FontSize="20" Margin="20,160,20,0" Grid.Row="2" Grid.Column="1"
+                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="59" Click="ReturnAdministratorPrivilegesButton_Click">
+        </Button>
+    </Grid>
+</Window>
