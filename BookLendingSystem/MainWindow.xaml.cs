@@ -22,36 +22,34 @@ namespace BookLendingSystem {
             InitializeComponent();
         }
 
-        // 貸出ボタンがクリックされた時の処理
-        private void LendingButton_Click(object sender, RoutedEventArgs e) {
-            // 貸出画面を開く
-            LendingWindow lendingWindow = new LendingWindow();
-            lendingWindow.Show();  // 新しいウィンドウを表示
-            this.Close();       // メイン画面を閉じる場合（必要なら）
+        // 会員登録ボタンがクリックされた時の処理
+        private void MemberRegistrationButton_Click(object sender, RoutedEventArgs e) {
+            // 会員登録画面を開く
+            MemberRegistrationWindow memberRegistrationWindow = new MemberRegistrationWindow();
+            memberRegistrationWindow.Show();  // 新しいウィンドウを表示
+
+            // メイン画面を非表示にする
+            this.Hide();
+
+            // memberRegistrationWindowが閉じられたら、メイン画面を再表示する
+            memberRegistrationWindow.Closed += (s, args) => {
+                this.Show();
+            };
         }
 
-        // 返却ボタンのクリックイベントハンドラ
-        private void ReturnButton_Click(object sender, RoutedEventArgs e) {
-            // 返却画面を開く
-            ReturnWindow returnWindow = new ReturnWindow();
-            returnWindow.Show();
-            this.Close(); // メイン画面を閉じる場合（必要なら）
-        }
+        // ログインボタンのクリックイベントハンドラ
+        private void LoginButton_Click(object sender, RoutedEventArgs e) {
+            // ログイン画面を開く
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
 
-        // 管理貸出権限ボタンのクリックイベント
-        private void LoanAdministratorPrivilegesButton_Click(object sender, RoutedEventArgs e) {
-            // 管理者貸出権限画面を開く
-            LoanAdministratorPrivilegesWindow adminWindow = new LoanAdministratorPrivilegesWindow();
-            adminWindow.Show();  // 新しいウィンドウを表示
-            this.Close();        // メインウィンドウを閉じる（必要に応じて）
-        }
+            // メイン画面を非表示にする
+            this.Hide();
 
-        // 管理返却権限ボタンのクリックイベント
-        private void ReturnAdministratorPrivilegesButton_Click(object sender, RoutedEventArgs e) {
-            // 管理者返却権限画面を開く
-            ReturnAdministratorPrivilegesWindow adminReturnWindow = new ReturnAdministratorPrivilegesWindow();
-            adminReturnWindow.Show();
-            this.Close(); // メインウィンドウを閉じる（必要に応じて）
+            // loginWindowが閉じられたら、メイン画面を再表示する
+            loginWindow.Closed += (s, args) => {
+                this.Show();
+            };
         }
     }
 }

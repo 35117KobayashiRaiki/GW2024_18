@@ -1,11 +1,11 @@
-﻿<Window x:Class="BookLendingSystem.MainWindow"
+﻿<Window x:Class="BookLendingSystem.SelectionWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="貸出・返却選択画面" Height="500" Width="800">
+        Title="SelectionWindow" Height="500" Width="800">
     <Grid>
         <!-- 背景画像を設定 -->
         <Grid.Background>
@@ -53,13 +53,13 @@
         </TextBlock>
 
         <!-- 貸出ボタン -->
-        <Button Content="会員登録" VerticalAlignment="Top" FontSize="30" Margin="20,130,20,0" Grid.Row="2" Grid.Column="0"
-                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="MemberRegistrationButton_Click">
+        <Button Content="貸出" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0" Grid.Row="2" Grid.Column="0"
+                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="LendingButton_Click">
         </Button>
 
         <!-- 返却ボタン -->
-        <Button Content="ログイン" VerticalAlignment="Top" FontSize="30" Margin="20,130,20,0" Grid.Row="2" Grid.Column="1"
-                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="LoginButton_Click">
+        <Button Content="返却" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0" Grid.Row="2" Grid.Column="1"
+                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="ReturnButton_Click">
         </Button>
     </Grid>
 </Window>

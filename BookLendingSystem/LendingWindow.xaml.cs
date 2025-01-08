@@ -24,5 +24,12 @@ namespace BookLendingSystem {
         private void LendingButton_Click(object sender, RoutedEventArgs e) {
 
         }
+
+        // ここでウィンドウが閉じられたときの処理が開始されます
+        private void Window_Closed(object sender, EventArgs e) {
+            // MainWindowが再表示される
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+        }
     }
 }

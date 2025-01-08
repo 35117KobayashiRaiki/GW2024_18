@@ -14,23 +14,11 @@ using System.Windows.Shapes;
 
 namespace BookLendingSystem {
     /// <summary>
-    /// LoanAdministratorPrivilegesWindow.xaml の相互作用ロジック
+    /// MemberRegistrationWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class LoanAdministratorPrivilegesWindow : Window {
-        public LoanAdministratorPrivilegesWindow() {
+    public partial class MemberRegistrationWindow : Window {
+        public MemberRegistrationWindow() {
             InitializeComponent();
-        }
-
-        private void RegisterButton_Click(object sender, RoutedEventArgs e) {
-
-        }
-
-        private void UpdateButton_Click(object sender, RoutedEventArgs e) {
-
-        }
-
-        private void DeleteButton_Click(object sender, RoutedEventArgs e) {
-
         }
     }
 }
