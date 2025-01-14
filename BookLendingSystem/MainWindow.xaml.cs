@@ -28,13 +28,7 @@ namespace BookLendingSystem {
             MemberRegistrationWindow memberRegistrationWindow = new MemberRegistrationWindow();
             memberRegistrationWindow.Show();  // 新しいウィンドウを表示
 
-            // メイン画面を非表示にする
-            this.Hide();
-
-            // memberRegistrationWindowが閉じられたら、メイン画面を再表示する
-            memberRegistrationWindow.Closed += (s, args) => {
-                this.Show();
-            };
+            this.Hide();  // MainWindowを非表示にする
         }
 
         // ログインボタンのクリックイベントハンドラ

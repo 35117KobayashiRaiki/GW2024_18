@@ -5,17 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="MemberRegistrationWindow" Height="600" Width="800">
+        Title="会員登録画面" Height="680" Width="900">
     <Grid>
+        <!-- ウィンドウ全体の背景に画像を設定 -->
+        <Grid.Background>
+            <ImageBrush ImageSource="Images/LibraryBackground.jpg"/>
+            <!-- 画像ファイルのパスを指定 -->
+        </Grid.Background>
+
         <!-- 図書館名 -->
         <TextBlock Text="○○○○図書館" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Row="0">
             <TextBlock.Background>
                 <SolidColorBrush Color="#66000000"/>
-                <!-- 半透明の背景を追加 -->
             </TextBlock.Background>
             <TextBlock.Foreground>
                 <SolidColorBrush Color="White"/>
-                <!-- テキスト色を白に変更 -->
             </TextBlock.Foreground>
         </TextBlock>
 
@@ -23,28 +27,39 @@
         <TextBlock Text="○○○ academy library" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10,128,10,10">
             <TextBlock.Background>
                 <SolidColorBrush Color="#66000000"/>
-                <!-- 半透明の背景を追加 -->
             </TextBlock.Background>
             <TextBlock.Foreground>
                 <SolidColorBrush Color="White"/>
-                <!-- テキスト色を白に変更 -->
             </TextBlock.Foreground>
         </TextBlock>
 
         <!-- 中央の入力情報 -->
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Height="182" Width="700" Margin="0,240,0,0">
-            <TextBlock Text="貸出者名" VerticalAlignment="Center" FontSize="25"/>
-            <TextBox x:Name="LenderNameTextBox" Width="300"/>
-            <TextBlock Text="図書タイトル" VerticalAlignment="Center" FontSize="25"/>
-            <TextBox x:Name="BookTitleTextBox" Width="300" Margin="5"/>
-            <TextBlock Text="著者名" VerticalAlignment="Center" FontSize="25"/>
-            <TextBox x:Name="AuthorTextBox" Width="300" Margin="5"/>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Height="248" Width="743" Margin="0,240,0,0">
+            <StackPanel.Resources>
+                <Style TargetType="TextBox">
+                    <Setter Property="Height" Value="35"/>
+                    <Setter Property="Margin" Value="0,5"/>
+                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="BorderBrush" Value="#FF6A6A6A"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Background" Value="#66000000"/>
+                </Style>
+            </StackPanel.Resources>
+
+            <!-- バーコード入力 -->
+            <TextBlock Text="バーコード" VerticalAlignment="Center" FontSize="35" Foreground="White"/>
+            <TextBox x:Name="LenderNameTextBox" Width="300" Margin="0,10"/>
+
+            <!-- 会員ID入力 -->
+            <TextBlock Text="会員ID" VerticalAlignment="Center" FontSize="35" Foreground="White"/>
+            <TextBox x:Name="BookTitleTextBox" Width="300" Margin="0,10"/>
         </StackPanel>
 
         <!-- 下部のボタン -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="280,464,0,20" Width="230" Height="100">
-            <Button Content="登録" Width="100" Height="40" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="15" Click="RegisterReturnButton_Click"/>
-            <Button Content="更新" Width="100" Height="40" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="15" Click="UpdateReturnButton_Click"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,493,0,44" Width="356">
+            <Button Content="登録" Width="150" Height="50" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="35" Foreground="White" Click="RegistrationButton_Click"/>
+            <Button Content="キャンセル" Width="150" Height="50" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="35" Foreground="White" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>
