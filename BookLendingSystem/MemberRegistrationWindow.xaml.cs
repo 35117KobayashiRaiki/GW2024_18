@@ -26,27 +26,12 @@ namespace BookLendingSystem {
             InitializeComponent();
         }
 
-        // 会員情報をデータベースに登録
-        private void RegisterMember(string memberId, string barcode) {
-            
-            using(SQLiteConnection coon = new SQLiteConnection(connectionString)) {
-
-            }
-        }
-
         private void RegistrationButton_Click(object sender, RoutedEventArgs e) {
 
             // バーコードから会員IDを生成
             string barcode = LenderNameTextBox.Text;
 
-            if (!string.IsNullOrEmpty(barcode)) {
-
-                // 会員IDの自動生成
-                string memberId = GenerateMemberId(barcode);
-
-                //　会員情報をデータベースに登録
-                regi
-            }
+            if (!string.IsNullOrEmpty(barcode)) { }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
