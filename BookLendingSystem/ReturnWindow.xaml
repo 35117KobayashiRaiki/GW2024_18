@@ -44,7 +44,7 @@
                    Grid.Row="1" Grid.Column="0" Margin="10" FontSize="30" Width="120" 
                    Foreground="White"/>
         <StackPanel VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="10">
-            <TextBlock Text="貸出者名:" Foreground="White" FontSize="20"/>
+            <TextBlock Text="会員ID:" Foreground="White" FontSize="20"/>
             <TextBox x:Name="NameTextBox" IsReadOnly="True" Margin="5" FontSize="20"
                      Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A"
                      BorderThickness="1" Height="35"/>
