@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="ログイン画面" Height="720" Width="900">
+        Title="ログイン画面" Height="800" Width="1000">
     <Grid>
         <!-- ウィンドウ全体の背景に画像を設定 -->
         <Grid.Background>
@@ -33,7 +33,7 @@
         </TextBlock>
 
         <!-- 中央の入力情報 -->
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Height="300" Width="743" Margin="0,240,0,0">
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Height="382" Width="895" Margin="0,240,0,0">
             <StackPanel.Resources>
                 <Style TargetType="TextBox">
                     <Setter Property="Height" Value="35"/>
@@ -58,22 +58,22 @@
             </StackPanel.Resources>
 
             <!-- バーコード入力 -->
-            <TextBlock Text="バーコード" VerticalAlignment="Center" FontSize="35" Foreground="White"/>
-            <TextBox x:Name="BarcodeTextBox" Width="300"/>
+            <TextBlock Text="バーコード" VerticalAlignment="Center" FontSize="50" Foreground="White"/>
+            <TextBox x:Name="BarcodeTextBox" Width="500"/>
 
             <!-- 会員ID入力 -->
-            <TextBlock Text="会員ID" VerticalAlignment="Center" FontSize="35" Foreground="White"/>
-            <TextBox x:Name="MemberIDTextBox" Width="300"/>
+            <TextBlock Text="会員ID" VerticalAlignment="Center" FontSize="50" Foreground="White"/>
+            <TextBox x:Name="MemberIDTextBox" Width="500"/>
 
             <!-- パスワード入力 -->
-            <TextBlock Text="パスワード" VerticalAlignment="Center" FontSize="35" Foreground="White"/>
-            <PasswordBox x:Name="PasswordBox" Width="300"/>
+            <TextBlock Text="パスワード" VerticalAlignment="Center" FontSize="50" Foreground="White"/>
+            <PasswordBox x:Name="PasswordBox" Width="500"/>
         </StackPanel>
 
         <!-- 下部のボタン -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,545,0,10" Width="356">
-            <Button Content="登録" Width="150" Height="50" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="35" Foreground="White" Click="RegistrationButton_Click"/>
-            <Button Content="キャンセル" Width="150" Height="50" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="35" Foreground="White" Click="CancelButton_Click"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,627,0,34" Width="430">
+            <Button Content="ログイン" Width="160" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="RegistrationButton_Click"/>
+            <Button Content="キャンセル" Width="160" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="CancelButton_Click"/>
         </StackPanel>
     </Grid>
 </Window>

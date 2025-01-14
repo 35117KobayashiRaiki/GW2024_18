@@ -12,17 +12,41 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace BookLendingSystem {
     /// <summary>
     /// MemberRegistrationWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class MemberRegistrationWindow : Window {
+
+        // SQLiteデータベースの接続文字列
+        private string connectionString = "Data Soure=MemberRegistration.db;Version=3;";
+
         public MemberRegistrationWindow() {
             InitializeComponent();
         }
 
+        // 会員情報をデータベースに登録
+        private void RegisterMember(string memberId, string barcode) {
+            
+            using(SQLiteConnection coon = new SQLiteConnection(connectionString)) {
+
+            }
+        }
+
         private void RegistrationButton_Click(object sender, RoutedEventArgs e) {
 
+            // バーコードから会員IDを生成
+            string barcode = LenderNameTextBox.Text;
+
+            if (!string.IsNullOrEmpty(barcode)) {
+
+                // 会員IDの自動生成
+                string memberId = GenerateMemberId(barcode);
+
+                //　会員情報をデータベースに登録
+                regi
+            }
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) {

@@ -5,62 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="返却画面" Height="700" Width="600">
+        Title="返却画面" Height="900" Width="1000">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="Images/LibraryBackground.jpg"/>
-            <!-- 画像ファイルのパスを指定 -->
         </Grid.Background>
         <!-- 行と列の定義 -->
         <Grid.RowDefinitions>
-            <!-- バーコード入力欄 -->
+            <RowDefinition Height="Auto" MinHeight="140"/>
+            <RowDefinition Height="Auto" MinHeight="430"/>
             <RowDefinition Height="Auto"/>
-            <!-- 図書情報表示欄 -->
-            <RowDefinition Height="Auto"/>
-            <!-- ボタン -->
-            <RowDefinition Height="Auto"/>
-            <!-- 貸出履歴表示欄 -->
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.7*"/>
-            <!-- 左側エリア -->
             <ColumnDefinition Width="2*"/>
-            <!-- 右側エリア -->
         </Grid.ColumnDefinitions>
 
         <!-- バーコード入力欄 -->
         <TextBlock Text="バーコード" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Grid.Column="0" Margin="10,10,0,0" FontSize="30" Width="120"
-                   Foreground="White"/>
+                   Grid.Column="0" Margin="10,0,0,0" FontSize="30" Width="120"
+                   Foreground="White" Height="40"/>
         <TextBox x:Name="BarcodeTextBox" Width="270" HorizontalAlignment="Left"
-                 VerticalAlignment="Center" Grid.Column="1" Margin="10,10,0,0" FontSize="16"
+                 VerticalAlignment="Center" Grid.Column="1" Margin="10,0,0,0" FontSize="16"
                  Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A"
-                 BorderThickness="1" Height="35"/>
+                 BorderThickness="1" Height="34"/>
 
         <!-- 図書情報表示欄 -->
         <TextBlock Text="図書情報" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Grid.Row="1" Grid.Column="0" Margin="10" FontSize="30" Width="120" 
-                   Foreground="White"/>
-        <StackPanel VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="10">
-            <TextBlock Text="会員ID:" Foreground="White" FontSize="20"/>
+                   Grid.Row="1" Grid.Column="0" Margin="10,0,0,0" FontSize="30" Width="120" 
+                   Foreground="White" Height="40"/>
+        <StackPanel VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Margin="10,0,10,0" Height="571">
+            <TextBlock Text="会員ID:" Foreground="White" FontSize="30"/>
             <TextBox x:Name="NameTextBox" IsReadOnly="True" Margin="5" FontSize="20"
                      Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A"
-                     BorderThickness="1" Height="35"/>
+                     BorderThickness="1" Height="40"/>
 
-            <TextBlock Text="タイトル:" Foreground="White" FontSize="20"/>
+            <TextBlock Text="タイトル:" Foreground="White" FontSize="30"/>
             <TextBox x:Name="TitleTextBox" IsReadOnly="True" Margin="5" FontSize="20"
                      Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A"
-                     BorderThickness="1" Height="35"/>
+                     BorderThickness="1" Height="40"/>
 
-            <TextBlock Text="著者:" Foreground="White" FontSize="20"/>
+            <TextBlock Text="著者:" Foreground="White" FontSize="30"/>
             <TextBox x:Name="AuthorTextBox" IsReadOnly="True" Margin="5" FontSize="20"
                      Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A"
-                     BorderThickness="1" Height="35"/>
+                     BorderThickness="1" Height="40"/>
 
-            <TextBlock Text="貸出日:" Foreground="White" FontSize="20"/>
-            <DatePicker x:Name="RentalDateTextBox" SelectedDate="{Binding RentalDate}" Margin="5" FontSize="16" Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A" BorderThickness="1" Height="35">
+            <TextBlock Text="貸出日:" Foreground="White" FontSize="30"/>
+            <DatePicker x:Name="RentalDateTextBox" SelectedDate="{Binding RentalDate}" Margin="5" FontSize="16" Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A" BorderThickness="1" Height="40">
                 <DatePicker.CalendarStyle>
                     <Style TargetType="Calendar">
                         <Setter Property="Background" Value="#66000000"/>
@@ -68,8 +61,8 @@
                 </DatePicker.CalendarStyle>
             </DatePicker>
 
-            <TextBlock Text="返却期限:" Foreground="White" FontSize="20"/>
-            <DatePicker x:Name="ReturnDeadlineTextBox" SelectedDate="{Binding ReturnDeadline}" Margin="5" FontSize="16" Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A" BorderThickness="1" Height="35">
+            <TextBlock Text="返却期限:" Foreground="White" FontSize="30"/>
+            <DatePicker x:Name="ReturnDeadlineTextBox" SelectedDate="{Binding ReturnDeadline}" Margin="5" FontSize="16" Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A" BorderThickness="1" Height="40">
                 <DatePicker.CalendarStyle>
                     <Style TargetType="Calendar">
                         <Setter Property="Background" Value="#66000000"/>
@@ -77,8 +70,8 @@
                 </DatePicker.CalendarStyle>
             </DatePicker>
 
-            <TextBlock Text="返却日:" Foreground="White" FontSize="20"/>
-            <DatePicker x:Name="ReturnDateTextBox" SelectedDate="{Binding ReturnDate}" Margin="5" FontSize="16" Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A" BorderThickness="1" Height="35">
+            <TextBlock Text="返却日:" Foreground="White" FontSize="30"/>
+            <DatePicker x:Name="ReturnDateTextBox" SelectedDate="{Binding ReturnDate}" Margin="5" FontSize="16" Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A" BorderThickness="1" Height="40">
                 <DatePicker.CalendarStyle>
                     <Style TargetType="Calendar">
                         <Setter Property="Background" Value="#66000000"/>
@@ -88,18 +81,23 @@
         </StackPanel>
 
         <!-- 返却ボタン -->
-        <Button Content="返却" Width="122" Height="45" VerticalAlignment="Top"
-        HorizontalAlignment="Left" Grid.Column="1" Margin="290,3,0,0"
-        Click="LendingButton_Click" Background="Transparent" Foreground="White" FontSize="20" FontWeight="Bold"
+        <Button Content="返却" Width="200" Height="60" VerticalAlignment="Top"
+        HorizontalAlignment="Left" Grid.Column="1" Margin="376,3,0,0"
+        Click="LendingButton_Click" Background="Transparent" Foreground="White" FontSize="25" FontWeight="Bold"
+        BorderBrush="Transparent" BorderThickness="2"/>
+
+        <!-- キャンセルボタン -->
+        <Button Content="キャンセル" Width="200" Height="60" VerticalAlignment="Top"
+        HorizontalAlignment="Left" Grid.Column="1" Margin="376,75,0,0"
+        Click="CancelButton_Click" Background="Transparent" Foreground="White" FontSize="25" FontWeight="Bold"
         BorderBrush="Transparent" BorderThickness="2"/>
 
         <!-- 返却履歴 -->
         <TextBlock Text="返却履歴" VerticalAlignment="Top" HorizontalAlignment="Left"
-                   Grid.Row="3" Grid.Column="0" Margin="10" FontSize="30" Width="120"
-                   Foreground="White"/>
-        <ListBox x:Name="ReturnHistoryListBox" Grid.Row="3" Grid.Column="1" Margin="10"
+                   Grid.Row="3" Grid.Column="0" Margin="10,10,0,0" FontSize="30" Width="120"
+                   Foreground="White" Height="40"/>
+        <ListBox x:Name="ReturnHistoryListBox" Grid.Row="3" Grid.Column="1" Margin="10,10,10,9"
                  Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A"
-                 BorderThickness="1" Height="200"/>
-
+                 BorderThickness="1"/>
     </Grid>
 </Window>

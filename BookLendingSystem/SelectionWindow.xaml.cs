@@ -50,5 +50,16 @@ namespace BookLendingSystem {
                 this.Show();
             };
         }
+
+        private void Back_Click(object sender, RoutedEventArgs e) {
+            // MainWindowがすでに開かれている場合に再表示する
+            var mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+            if (mainWindow != null) {
+                mainWindow.Show();  // MainWindowを表示
+            }
+
+            // 現在のウィンドウ（MemberRegistrationWindow）を閉じる
+            this.Close();
+        }
     }
 }

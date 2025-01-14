@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="SelectionWindow" Height="500" Width="800">
+        Title="貸出・返却選択画面" Height="600" Width="1000">
     <Grid>
         <!-- 背景画像を設定 -->
         <Grid.Background>
@@ -29,7 +29,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- 図書館名 -->
-        <TextBlock Text="○○○○図書館" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0" Grid.Row="0" Grid.ColumnSpan="2">
+        <TextBlock Text="○○○○図書館" FontSize="92" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0" Grid.Row="0" Grid.ColumnSpan="2">
             <TextBlock.Background>
                 <SolidColorBrush Color="#66000000"/>
                 <!-- 半透明の背景を追加 -->
@@ -41,7 +41,7 @@
         </TextBlock>
 
         <!-- 図書館名のアルファベット -->
-        <TextBlock Text="○○○ academy library" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">
+        <TextBlock Text="○○○ academy library" FontSize="52" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">
             <TextBlock.Background>
                 <SolidColorBrush Color="#66000000"/>
                 <!-- 半透明の背景を追加 -->
@@ -61,5 +61,11 @@
         <Button Content="返却" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0" Grid.Row="2" Grid.Column="1"
                 Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="ReturnButton_Click">
         </Button>
+
+        <!-- 戻るボタン -->
+        <Button Content="戻る" VerticalAlignment="Top" FontSize="40" Margin="270,256,270,0" Grid.Row="2" Grid.Column="0"
+        Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="Back_Click" Grid.ColumnSpan="2">
+        </Button>
+
     </Grid>
 </Window>

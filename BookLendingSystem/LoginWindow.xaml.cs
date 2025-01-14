@@ -20,5 +20,20 @@ namespace BookLendingSystem {
         public LoginWindow() {
             InitializeComponent();
         }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e) {
+            // MainWindowがすでに開かれている場合に再表示する
+            var mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+            if (mainWindow != null) {
+                mainWindow.Show();  // MainWindowを表示
+            }
+
+            // 現在のウィンドウ（MemberRegistrationWindow）を閉じる
+            this.Close();
+        }
+
+        private void RegistrationButton_Click(object sender, RoutedEventArgs e) {
+
+        }
     }
 }
