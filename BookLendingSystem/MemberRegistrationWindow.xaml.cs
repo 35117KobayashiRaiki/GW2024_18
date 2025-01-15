@@ -16,6 +16,7 @@ using System.Data.SQLite;
 namespace BookLendingSystem {
     /// <summary>
     /// MemberRegistrationWindow.xaml の相互作用ロジック
+    /// 会員登録ウィンドウの処理を担当するクラス
     /// </summary>
     public partial class MemberRegistrationWindow : Window {
 
@@ -23,6 +24,7 @@ namespace BookLendingSystem {
             InitializeComponent();
         }
 
+        // 会員登録ボタンがクリックされたときの処理
         private void RegistrationButton_Click(object sender, RoutedEventArgs e) {
 
             // バーコードから会員IDを生成
@@ -56,20 +58,30 @@ namespace BookLendingSystem {
             BookTitleTextBox.Clear();
         }
 
+        // 新しい会員IDを生成するメソッド
         private string GenerateMemberId() {
             using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
                 connection.Open();
+
+                // データベースから最大の会員IDを取得
                 string query = "SELECT MAX(Id) FROM Members";
                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
                 var result = cmd.ExecuteScalar();
+
+                // 新しい会員IDを生成（最大値 + 1）
                 int newId = result != DBNull.Value ? Convert.ToInt32(result) + 1 : 1;
-                return newId.ToString("D5"); // 会員IDは例: 00001, 00002...
+
+                // 会員IDは5桁でゼロ埋め（例: 00001, 00002...）
+                return newId.ToString("D5");
             }
         }
 
+        // 会員情報をデータベースに登録するメソッド
         private void RegisterMember(string barcode, string memberId) {
             using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
                 connection.Open();
+
+                // 会員情報をMembersテーブルに挿入
                 string query = "INSERT INTO Members (Barcode, MemberId) VALUES (@Barcode, @MemberId)";
                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
                 cmd.Parameters.AddWithValue("@Barcode", barcode);
@@ -78,14 +90,19 @@ namespace BookLendingSystem {
             }
         }
 
+        // バーコードがすでに登録されているか確認するメソッド
         private bool IsBarcodeExist(string barcode) {
             using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
                 connection.Open();
+
+                // データベースでバーコードが既に登録されているかをカウント
                 string query = "SELECT COUNT(*) FROM Members WHERE Barcode = @Barcode";
                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
                 cmd.Parameters.AddWithValue("@Barcode", barcode);
                 long count = (long)cmd.ExecuteScalar();
-                return count > 0; // バーコードが存在すればtrueを返す
+
+                // バーコードが存在すればtrueを返す
+                return count > 0; 
             }
         }
 
