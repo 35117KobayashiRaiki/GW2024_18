@@ -21,19 +21,30 @@ namespace BookLendingSystem {
             InitializeComponent();
         }
 
+        // キャンセルボタンがクリックされた時の処理
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
-            // MainWindowがすでに開かれている場合に再表示する
+            // MainWindowが開かれている場合に再表示する
             var mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
             if (mainWindow != null) {
                 mainWindow.Show();  // MainWindowを表示
             }
 
-            // 現在のウィンドウ（MemberRegistrationWindow）を閉じる
+            // 現在のウィンドウ（LoginWindow）を閉じる
             this.Close();
         }
 
         private void RegistrationButton_Click(object sender, RoutedEventArgs e) {
 
         }
+
+        // LoginWindowが閉じられたときの処理
+        private void Window_Closed(object sender, EventArgs e) {
+            // MainWindowが開かれていれば再表示
+            var mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+            if (mainWindow != null) {
+                mainWindow.Show();
+            }
+        }
+
     }
 }

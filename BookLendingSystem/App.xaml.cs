@@ -5,11 +5,43 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Data.SQLite;
 
 namespace BookLendingSystem {
     /// <summary>
     /// App.xaml の相互作用ロジック
     /// </summary>
     public partial class App : Application {
+
+        // データベース接続文字列を静的プロパティとして定義
+        public static string DbConnectionString => "Data Source=members.db;Version=3;";
+
+        // アプリケーションの起動時に呼び出されるメソッド
+        protected override void OnStartup(StartupEventArgs e) {
+            base.OnStartup(e);
+
+            // データベースのテーブル作成
+            CreateTable();
+
+        }
+
+        // データベースのテーブルを作成するメソッド
+        public void CreateTable() {
+            using (SQLiteConnection conn = new SQLiteConnection(DbConnectionString)) {
+                conn.Open();
+
+                string createTableQuery = @"
+                CREATE TABLE IF NOT EXISTS Members (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    Barcode TEXT NOT NULL UNIQUE,
+                    MemberId TEXT NOT NULL
+                );";
+
+                SQLiteCommand cmd = new SQLiteCommand(createTableQuery, conn);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+
     }
 }
