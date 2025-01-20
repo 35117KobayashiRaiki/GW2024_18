@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="会員登録画面" Height="800" Width="1000">
+        Title="会員登録画面" Height="700" Width="1000">
     <Grid>
         <!-- ウィンドウ全体の背景に画像を設定 -->
         <Grid.Background>
@@ -34,12 +34,13 @@
         </TextBlock>
 
         <!-- 中央の入力情報 -->
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Height="317" Width="941" Margin="0,240,0,0">
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Height="405" Width="883" Margin="0,210,0,0">
             <StackPanel.Resources>
                 <Style TargetType="TextBox">
                     <Setter Property="Height" Value="35"/>
                     <Setter Property="Margin" Value="0,5"/>
-                    <Setter Property="FontSize" Value="18"/>
+                    <Setter Property="FontSize" Value="30"/>
+                    <Setter Property="Foreground" Value="White"/>
                     <Setter Property="Padding" Value="10"/>
                     <Setter Property="BorderBrush" Value="#FF6A6A6A"/>
                     <Setter Property="BorderThickness" Value="1"/>
@@ -48,18 +49,17 @@
             </StackPanel.Resources>
 
             <!-- バーコード入力 -->
-            <TextBlock Text="バーコード" VerticalAlignment="Center" FontSize="50" Foreground="White"/>
-            <TextBox x:Name="LenderNameTextBox" Width="450" Margin="0,10" Height="70"/>
+            <TextBlock Text="バーコード" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
+            <TextBox x:Name="LenderNameTextBox" Width="450" Margin="0,10" Height="60"/>
 
             <!-- 会員ID入力 -->
-            <TextBlock Text="会員ID" VerticalAlignment="Center" FontSize="50" Foreground="White"/>
-            <TextBox x:Name="BookTitleTextBox" Width="450" Margin="0,10" Height="70"/>
-        </StackPanel>
-
-        <!-- 下部のボタン -->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,583,0,39" Width="390">
-            <Button Content="登録" Width="150" Height="50" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="35" Foreground="White" Click="RegistrationButton_Click"/>
-            <Button Content="キャンセル" Width="150" Height="50" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="35" Foreground="White" Click="CancelButton_Click"/>
+            <TextBlock Text="会員ID" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
+            <TextBox x:Name="BookTitleTextBox" Width="450" Margin="0,10" Height="60"/>
+            <StackPanel Orientation="Horizontal" Width="631" Height="86">
+                <Button Content="登録" Width="150" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="RegistrationButton_Click"/>
+                <Button Content="キャンセル" Width="180" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="CancelButton_Click"/>
+                <Button Content="削除" Width="150" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="DeleteButton_Click"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

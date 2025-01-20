@@ -24,22 +24,19 @@ namespace BookLendingSystem {
 
         // 会員登録ボタンがクリックされた時の処理
         private void MemberRegistrationButton_Click(object sender, RoutedEventArgs e) {
-            // 会員登録画面を開く
-            OpenMemberRegistrationWindow();
+            // MainWindowを非表示にしてログイン画面を開く
+            this.Hide(); // MainWindowを非表示にする
+
+            MemberRegistrationWindow MemberRegistrationloginWindow = new MemberRegistrationWindow();
+            MemberRegistrationloginWindow.Show();
+
+            // ログイン画面が閉じられた後にMainWindowを再表示
+            MemberRegistrationloginWindow.Closed += (s, args) => {
+                this.Show(); // MainWindowを再表示
+            };
         }
 
-        // 会員登録画面を開くためのメソッド
-        private void OpenMemberRegistrationWindow() {
-            // MainWindow が開かれている場合は非表示にする
-            var mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
-            if (mainWindow != null) {
-                mainWindow.Hide();  // MainWindowを非表示にする
-            }
-
-            // MemberRegistrationWindow を開く
-            MemberRegistrationWindow registrationWindow = new MemberRegistrationWindow();
-            registrationWindow.Show();
-        }
+       
 
         // ログインボタンのクリックイベントハンドラ
         private void LoginButton_Click(object sender, RoutedEventArgs e) {

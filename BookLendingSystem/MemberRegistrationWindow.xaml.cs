@@ -126,5 +126,42 @@ namespace BookLendingSystem {
                 mainWindow.Show();  // MainWindowを表示
             }
         }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e) {
+            string barcode = LenderNameTextBox.Text.Trim();  // バーコードを取得
+
+            if (string.IsNullOrEmpty(barcode)) {
+                MessageBox.Show("削除するバーコードを入力してください。");
+                return;
+            }
+
+            // バーコードがデータベースに存在するかを確認
+            if (!IsBarcodeExist(barcode)) {
+                MessageBox.Show("このバーコード番号は登録されていません。");
+                return;
+            }
+
+            // 会員情報を削除
+            DeleteMember(barcode);
+
+            MessageBox.Show("会員情報が削除されました。");
+
+            // 入力フィールドをクリア
+            LenderNameTextBox.Clear();
+            BookTitleTextBox.Clear();
+        }
+
+        // バーコードに対応する会員情報を削除するメソッド
+        private void DeleteMember(string barcode) {
+            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
+                connection.Open();
+
+                // バーコードを元にデータベースから会員情報を削除
+                string query = "DELETE FROM Members WHERE Barcode = @Barcode";
+                SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                cmd.Parameters.AddWithValue("@Barcode", barcode);
+                cmd.ExecuteNonQuery();
+            }
+        }
     }
 }
