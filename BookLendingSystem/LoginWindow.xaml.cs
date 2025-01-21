@@ -21,6 +21,10 @@ namespace BookLendingSystem {
     public partial class LoginWindow : Window {
         public LoginWindow() {
             InitializeComponent();
+
+            // BarcodeTextBoxのTextChangedイベントを登録
+            BarcodeTextBox.TextChanged += BarcodeTextBox_TextChanged;
+
         }
 
         // キャンセルボタンがクリックされた時の処理
@@ -35,7 +39,27 @@ namespace BookLendingSystem {
             this.Close();
         }
 
-        // ログインボタンがクリックされた時の処理
+        // BarcodeTextBoxのTextChangedイベントハンドラ
+        private void BarcodeTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            string barcode = BarcodeTextBox.Text.Trim();
+
+            // バーコードが空の場合は処理を中断
+            if (string.IsNullOrEmpty(barcode)) {
+                MemberIDTextBox.Clear();
+                return;
+            }
+
+            // バーコードがデータベースに存在するか確認
+            if (IsBarcodeExist(barcode)) {
+                // バーコードに対応する会員IDを取得して表示
+                string dbMemberId = GetMemberIdByBarcode(barcode);
+                MemberIDTextBox.Text = dbMemberId;
+            } else {
+                // バーコードが存在しない場合、MemberIDTextBoxをクリア
+                MemberIDTextBox.Clear();
+            }
+        }
+
         private void RegistrationButton_Click(object sender, RoutedEventArgs e) {
             // 入力されたバーコード、会員ID、パスワードを取得
             string barcode = BarcodeTextBox.Text.Trim();
@@ -48,17 +72,19 @@ namespace BookLendingSystem {
                 return;
             }
 
-            // バーコードがデータベースに存在するか確認
             if (IsBarcodeExist(barcode)) {
                 // バーコードに対応する会員IDをデータベースから取得
                 string dbMemberId = GetMemberIdByBarcode(barcode);
+
+                // 会員IDをテキストボックスに表示
+                MemberIDTextBox.Text = dbMemberId;
 
                 // 入力された会員IDがデータベースから取得した会員IDと一致するか確認
                 if (memberId == dbMemberId) {
                     // 会員IDが一致した場合、次の画面（SelectionWindow）を表示
                     SelectionWindow selectionWindow = new SelectionWindow();
                     selectionWindow.Show();
-                    this.Close();  // 現在の画面を閉じる
+                    this.Close(); // 現在の画面を閉じる
                 } else {
                     // 会員IDが一致しない場合、エラーメッセージを表示
                     MessageBox.Show("会員IDが一致しません。");

@@ -28,7 +28,7 @@ namespace BookLendingSystem {
         private void RegistrationButton_Click(object sender, RoutedEventArgs e) {
 
             // バーコードから会員IDを生成
-            string barcode = LenderNameTextBox.Text.Trim();
+            string barcode = BarcodeTextBox.Text.Trim();
 
             // バーコード番号が入力されていない場合はエラーメッセージ
             if (string.IsNullOrEmpty(barcode)) {
@@ -46,7 +46,7 @@ namespace BookLendingSystem {
             string memberId = GenerateMemberId();
 
             // 会員IDを表示
-            BookTitleTextBox.Text = memberId;
+            MemberIDTextBox.Text = memberId;
 
             // データベースに登録
             RegisterMember(barcode, memberId);
@@ -54,8 +54,8 @@ namespace BookLendingSystem {
             MessageBox.Show("会員登録が完了しました。");
 
             // 入力フィールドをクリア
-            LenderNameTextBox.Clear();
-            BookTitleTextBox.Clear();
+            BarcodeTextBox.Clear();
+            MemberIDTextBox.Clear();
         }
 
         // 新しい会員IDを生成するメソッド
@@ -102,7 +102,7 @@ namespace BookLendingSystem {
                 long count = (long)cmd.ExecuteScalar();
 
                 // バーコードが存在すればtrueを返す
-                return count > 0; 
+                return count > 0;
             }
         }
 
@@ -128,27 +128,24 @@ namespace BookLendingSystem {
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e) {
-            string barcode = LenderNameTextBox.Text.Trim();  // バーコードを取得
+            string barcode = BarcodeTextBox.Text.Trim();
 
             if (string.IsNullOrEmpty(barcode)) {
                 MessageBox.Show("削除するバーコードを入力してください。");
                 return;
             }
 
-            // バーコードがデータベースに存在するかを確認
             if (!IsBarcodeExist(barcode)) {
                 MessageBox.Show("このバーコード番号は登録されていません。");
                 return;
             }
 
-            // 会員情報を削除
             DeleteMember(barcode);
 
             MessageBox.Show("会員情報が削除されました。");
 
-            // 入力フィールドをクリア
-            LenderNameTextBox.Clear();
-            BookTitleTextBox.Clear();
+            BarcodeTextBox.Clear();
+            MemberIDTextBox.Clear();
         }
 
         // バーコードに対応する会員情報を削除するメソッド
@@ -156,7 +153,6 @@ namespace BookLendingSystem {
             using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
                 connection.Open();
 
-                // バーコードを元にデータベースから会員情報を削除
                 string query = "DELETE FROM Members WHERE Barcode = @Barcode";
                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
                 cmd.Parameters.AddWithValue("@Barcode", barcode);

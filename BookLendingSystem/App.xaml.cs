@@ -12,20 +12,14 @@ namespace BookLendingSystem {
     /// App.xaml の相互作用ロジック
     /// </summary>
     public partial class App : Application {
-
-        // データベース接続文字列を静的プロパティとして定義
-        public static string DbConnectionString => "Data Source=members.db;Version=3;";
-
-        // アプリケーションの起動時に呼び出されるメソッド
         protected override void OnStartup(StartupEventArgs e) {
             base.OnStartup(e);
-
-            // データベースのテーブル作成
             CreateTable();
-
+            // MainWindowを表示するなどの処理
         }
 
-        // データベースのテーブルを作成するメソッド
+        public static string DbConnectionString => "Data Source=members.db;Version=3;";
+
         public void CreateTable() {
             using (SQLiteConnection conn = new SQLiteConnection(DbConnectionString)) {
                 conn.Open();
@@ -41,7 +35,5 @@ namespace BookLendingSystem {
                 cmd.ExecuteNonQuery();
             }
         }
-
-
     }
 }
