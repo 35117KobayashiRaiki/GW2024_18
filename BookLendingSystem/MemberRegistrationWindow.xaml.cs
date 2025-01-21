@@ -22,6 +22,7 @@ namespace BookLendingSystem {
 
         public MemberRegistrationWindow() {
             InitializeComponent();
+
         }
 
         // 会員登録ボタンがクリックされたときの処理

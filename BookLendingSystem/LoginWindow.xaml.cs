@@ -24,7 +24,6 @@ namespace BookLendingSystem {
 
             // BarcodeTextBoxのTextChangedイベントを登録
             BarcodeTextBox.TextChanged += BarcodeTextBox_TextChanged;
-
         }
 
         // キャンセルボタンがクリックされた時の処理

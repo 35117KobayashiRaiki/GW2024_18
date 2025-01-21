@@ -19,17 +19,11 @@ namespace BookLendingSystem {
     public partial class LendingWindow : Window {
         public LendingWindow() {
             InitializeComponent();
+
         }
 
         private void LendingButton_Click(object sender, RoutedEventArgs e) {
 
-        }
-
-        // ここでウィンドウが閉じられたときの処理が開始されます
-        private void Window_Closed(object sender, EventArgs e) {
-            // MainWindowが再表示される
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
@@ -42,5 +36,6 @@ namespace BookLendingSystem {
             // 現在のウィンドウ（MemberRegistrationWindow）を閉じる
             this.Close();
         }
+
     }
 }

@@ -61,5 +61,15 @@ namespace BookLendingSystem {
             // 現在のウィンドウ（MemberRegistrationWindow）を閉じる
             this.Close();
         }
+
+        // ウィンドウが閉じられたときにMainWindowを表示する
+        private void Window_Closed(object sender, EventArgs e) {
+            // MainWindowを再表示する
+            var mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+            if (mainWindow != null) {
+                mainWindow.Show();  // MainWindowを表示
+            }
+        }
+
     }
 }
