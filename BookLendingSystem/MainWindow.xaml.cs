@@ -36,19 +36,22 @@ namespace BookLendingSystem {
             };
         }
 
-       
+
 
         // ログインボタンのクリックイベントハンドラ
         private void LoginButton_Click(object sender, RoutedEventArgs e) {
-            // MainWindowを非表示にしてログイン画面を開く
-            this.Hide(); // MainWindowを非表示にする
-
+            // ログイン画面を表示
             LoginWindow loginWindow = new LoginWindow();
             loginWindow.Show();
 
-            // ログイン画面が閉じられた後にMainWindowを再表示
+            // この画面を非表示にする
+            this.Hide();
+
+            // ログイン画面が閉じられたとき、この画面を再表示する
             loginWindow.Closed += (s, args) => {
-                this.Show(); // MainWindowを再表示
+                if (!loginWindow.IsLoggedIn) { // ログイン成功していない場合
+                    this.Show();
+                }
             };
         }
     }

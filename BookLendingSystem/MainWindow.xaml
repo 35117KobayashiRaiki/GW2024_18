@@ -11,55 +11,59 @@
         <Grid.Background>
             <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
+        <!-- Viewboxで全体をラップ -->
+        <Viewbox Stretch="Uniform">
+            <Grid Width="1000" Height="500">
+                <!-- 行と列の定義 -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <!-- 図書館名 -->
+                    <RowDefinition Height="Auto"/>
+                    <!-- アルファベット名 -->
+                    <RowDefinition Height="1*"/>
+                    <!-- ボタンエリア -->
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <!-- 左側エリア -->
+                    <ColumnDefinition Width="1*"/>
+                    <!-- 右側エリア -->
+                </Grid.ColumnDefinitions>
 
-        <!-- 行と列の定義 -->
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <!-- 図書館名 -->
-            <RowDefinition Height="Auto"/>
-            <!-- アルファベット名 -->
-            <RowDefinition Height="1*"/>
-            <!-- ボタンエリア -->
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <!-- 左側エリア -->
-            <ColumnDefinition Width="1*"/>
-            <!-- 右側エリア -->
-        </Grid.ColumnDefinitions>
+                <!-- 図書館名 -->
+                <TextBlock Text="○○○○図書館" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0" Grid.Row="0" Grid.ColumnSpan="2">
+                    <TextBlock.Background>
+                        <SolidColorBrush Color="#66000000"/>
+                        <!-- 半透明の背景を追加 -->
+                    </TextBlock.Background>
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="White"/>
+                        <!-- テキスト色を白に変更 -->
+                    </TextBlock.Foreground>
+                </TextBlock>
 
-        <!-- 図書館名 -->
-        <TextBlock Text="○○○○図書館" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0" Grid.Row="0" Grid.ColumnSpan="2">
-            <TextBlock.Background>
-                <SolidColorBrush Color="#66000000"/>
-                <!-- 半透明の背景を追加 -->
-            </TextBlock.Background>
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="White"/>
-                <!-- テキスト色を白に変更 -->
-            </TextBlock.Foreground>
-        </TextBlock>
+                <!-- 図書館名のアルファベット -->
+                <TextBlock Text="○○○ academy library" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">
+                    <TextBlock.Background>
+                        <SolidColorBrush Color="#66000000"/>
+                        <!-- 半透明の背景を追加 -->
+                    </TextBlock.Background>
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="White"/>
+                        <!-- テキスト色を白に変更 -->
+                    </TextBlock.Foreground>
+                </TextBlock>
 
-        <!-- 図書館名のアルファベット -->
-        <TextBlock Text="○○○ academy library" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">
-            <TextBlock.Background>
-                <SolidColorBrush Color="#66000000"/>
-                <!-- 半透明の背景を追加 -->
-            </TextBlock.Background>
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="White"/>
-                <!-- テキスト色を白に変更 -->
-            </TextBlock.Foreground>
-        </TextBlock>
+                <!-- 貸出ボタン -->
+                <Button Content="会員登録" VerticalAlignment="Top" FontSize="30" Margin="20,130,20,0" Grid.Row="2" Grid.Column="0"
+                        Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="MemberRegistrationButton_Click">
+                </Button>
 
-        <!-- 貸出ボタン -->
-        <Button Content="会員登録" VerticalAlignment="Top" FontSize="30" Margin="20,130,20,0" Grid.Row="2" Grid.Column="0"
-                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="MemberRegistrationButton_Click">
-        </Button>
-
-        <!-- 返却ボタン -->
-        <Button Content="ログイン" VerticalAlignment="Top" FontSize="30" Margin="20,130,20,0" Grid.Row="2" Grid.Column="1"
-                Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="LoginButton_Click">
-        </Button>
+                <!-- 返却ボタン -->
+                <Button Content="ログイン" VerticalAlignment="Top" FontSize="30" Margin="20,130,20,0" Grid.Row="2" Grid.Column="1"
+                        Background="Transparent" BorderBrush="Transparent" Foreground="White" Height="70" Click="LoginButton_Click">
+                </Button>
+            </Grid>
+        </Viewbox>
     </Grid>
 </Window>

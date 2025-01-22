@@ -67,7 +67,7 @@ namespace BookLendingSystem {
             // MainWindowを再表示する
             var mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
             if (mainWindow != null) {
-                mainWindow.Show();  // MainWindowを表示
+                mainWindow.Show();
             }
         }
 

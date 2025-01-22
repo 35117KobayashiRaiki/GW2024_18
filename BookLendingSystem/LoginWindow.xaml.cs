@@ -19,6 +19,8 @@ namespace BookLendingSystem {
     /// ログイン画面の処理を担当するクラス
     /// </summary>
     public partial class LoginWindow : Window {
+        public bool IsLoggedIn { get; private set; } = false;
+
         public LoginWindow() {
             InitializeComponent();
 
@@ -80,6 +82,8 @@ namespace BookLendingSystem {
 
                 // 入力された会員IDがデータベースから取得した会員IDと一致するか確認
                 if (memberId == dbMemberId) {
+                    // ログインが成功した場合
+                    IsLoggedIn = true;
                     // 会員IDが一致した場合、次の画面（SelectionWindow）を表示
                     SelectionWindow selectionWindow = new SelectionWindow();
                     selectionWindow.Show();

@@ -5,73 +5,78 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="ログイン画面" Height="700" Width="1300">
+        Title="ログイン画面" Height="700" ResizeMode="CanResize" Width="1300">
     <Grid>
         <!-- ウィンドウ全体の背景に画像を設定 -->
         <Grid.Background>
-            <ImageBrush ImageSource="Images/LibraryBackground.jpg"/>
+            <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill"/>
         </Grid.Background>
 
-        <!-- 図書館名 -->
-        <TextBlock Text="○○○○図書館" FontSize="82" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,4,0,0" Grid.Row="0">
-            <TextBlock.Background>
-                <SolidColorBrush Color="#66000000"/>
-            </TextBlock.Background>
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="White"/>
-            </TextBlock.Foreground>
-        </TextBlock>
+        <!-- Viewboxで全体をラップ -->
+        <Viewbox Stretch="Uniform">
+            <Grid Width="1300" Height="700">
+                <!-- 図書館名 -->
+                <TextBlock Text="○○○○図書館" FontSize="82" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,4,0,0">
+                    <TextBlock.Background>
+                        <SolidColorBrush Color="#66000000"/>
+                    </TextBlock.Background>
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="White"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
 
-        <!-- 図書館名のアルファベット -->
-        <TextBlock Text="○○○ academy library" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,126,0,0">
-            <TextBlock.Background>
-                <SolidColorBrush Color="#66000000"/>
-            </TextBlock.Background>
-            <TextBlock.Foreground>
-                <SolidColorBrush Color="White"/>
-            </TextBlock.Foreground>
-        </TextBlock>
+                <!-- 図書館名のアルファベット -->
+                <TextBlock Text="○○○ academy library" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,126,0,0">
+                    <TextBlock.Background>
+                        <SolidColorBrush Color="#66000000"/>
+                    </TextBlock.Background>
+                    <TextBlock.Foreground>
+                        <SolidColorBrush Color="White"/>
+                    </TextBlock.Foreground>
+                </TextBlock>
 
-        <!-- 中央の入力情報 -->
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Height="451" Width="1083" Margin="105,195,0,0">
-            <StackPanel.Resources>
-                <Style TargetType="TextBox">
-                    <Setter Property="Height" Value="35"/>
-                    <Setter Property="Margin" Value="0,10"/>
-                    <Setter Property="FontSize" Value="15"/>
-                    <Setter Property="Padding" Value="10"/>
-                    <Setter Property="BorderBrush" Value="#FF6A6A6A"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="Background" Value="#66000000"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Style>
-                <Style TargetType="PasswordBox">
-                    <Setter Property="Height" Value="35"/>
-                    <Setter Property="Margin" Value="0,10"/>
-                    <Setter Property="FontSize" Value="10"/>
-                    <Setter Property="Padding" Value="10"/>
-                    <Setter Property="BorderBrush" Value="#FF6A6A6A"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="Background" Value="#66000000"/>
-                    <Setter Property="Foreground" Value="White"/>
-                </Style>
-            </StackPanel.Resources>
+                <!-- 中央の入力情報 -->
+                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Height="451" Width="1083" Margin="105,195,0,0">
+                    <StackPanel.Resources>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Height" Value="35"/>
+                            <Setter Property="Margin" Value="0,10"/>
+                            <Setter Property="FontSize" Value="25"/>
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="BorderBrush" Value="#FF6A6A6A"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Background" Value="#66000000"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                        <Style TargetType="PasswordBox">
+                            <Setter Property="Height" Value="35"/>
+                            <Setter Property="Margin" Value="0,10"/>
+                            <Setter Property="FontSize" Value="20"/>
+                            <Setter Property="Padding" Value="10"/>
+                            <Setter Property="BorderBrush" Value="#FF6A6A6A"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Background" Value="#66000000"/>
+                            <Setter Property="Foreground" Value="White"/>
+                        </Style>
+                    </StackPanel.Resources>
 
-            <!-- バーコード入力 -->
-            <TextBlock Text="バーコード" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
-            <TextBox x:Name="BarcodeTextBox" Width="500" Height="40"/>
+                    <!-- バーコード入力 -->
+                    <TextBlock Text="バーコード" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
+                    <TextBox x:Name="BarcodeTextBox" Width="500" Height="50"/>
 
-            <!-- 会員ID入力 -->
-            <TextBlock Text="会員ID" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
-            <TextBox x:Name="MemberIDTextBox" Width="500" Height="40"/>
+                    <!-- 会員ID入力 -->
+                    <TextBlock Text="会員ID" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
+                    <TextBox x:Name="MemberIDTextBox" Width="500" Height="50"/>
 
-            <!-- パスワード入力 -->
-            <TextBlock Text="パスワード" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
-            <PasswordBox x:Name="PasswordBox" Width="500" Height="40"/>
-            <StackPanel Orientation="Horizontal" Width="421" Height="87">
-                <Button Content="ログイン" Width="160" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="RegistrationButton_Click"/>
-                <Button Content="キャンセル" Width="160" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="CancelButton_Click"/>
-            </StackPanel>
-        </StackPanel>
+                    <!-- パスワード入力 -->
+                    <TextBlock Text="パスワード" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
+                    <PasswordBox x:Name="PasswordBox" Width="500" Height="50"/>
+                    <StackPanel Orientation="Horizontal" Width="421" Height="87">
+                        <Button Content="ログイン" Width="160" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="RegistrationButton_Click"/>
+                        <Button Content="キャンセル" Width="160" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="CancelButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Viewbox>
     </Grid>
 </Window>
