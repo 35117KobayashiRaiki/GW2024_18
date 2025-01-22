@@ -22,7 +22,7 @@ namespace BookLendingSystem {
 
         }
 
-        private void LendingButton_Click(object sender, RoutedEventArgs e) {
+        private void RegisterLendingButton_Click(object sender, RoutedEventArgs e) {
 
         }
 
@@ -37,5 +37,16 @@ namespace BookLendingSystem {
             this.Close();
         }
 
+        private void SearchButton_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void UpdateButton_Click(object sender, RoutedEventArgs e) {
+
+        }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e) {
+
+        }
     }
 }
