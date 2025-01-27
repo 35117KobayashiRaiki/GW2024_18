@@ -24,15 +24,31 @@ namespace BookLendingSystem {
             using (SQLiteConnection conn = new SQLiteConnection(DbConnectionString)) {
                 conn.Open();
 
-                string createTableQuery = @"
+                // 会員情報テーブルの作成
+                string createMembersTableQuery = @"
                 CREATE TABLE IF NOT EXISTS Members (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Barcode TEXT NOT NULL UNIQUE,
+                    Barcode TEXT UNIQUE NOT NULL,
                     MemberId TEXT NOT NULL
                 );";
 
-                SQLiteCommand cmd = new SQLiteCommand(createTableQuery, conn);
-                cmd.ExecuteNonQuery();
+                SQLiteCommand createMembersCmd = new SQLiteCommand(createMembersTableQuery, conn);
+                createMembersCmd.ExecuteNonQuery();
+
+                // 貸出履歴テーブルの作成
+                string createLoansTableQuery = @"
+                CREATE TABLE IF NOT EXISTS Loans (
+                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    ISBN TEXT NOT NULL,
+                    MemberId TEXT NOT NULL,
+                    Title TEXT NOT NULL,
+                    Author TEXT NOT NULL,
+                    LoanDate TEXT NOT NULL,
+                    ReturnDate TEXT NOT NULL
+                );";
+
+                SQLiteCommand createLoansCmd = new SQLiteCommand(createLoansTableQuery, conn);
+                createLoansCmd.ExecuteNonQuery();
             }
         }
     }
