@@ -42,7 +42,10 @@ namespace BookLendingSystem {
 
                     // タイトルと著者を抽出
                     string title = doc.Descendants(dc + "title").FirstOrDefault()?.Value ?? "タイトル不明";
-                    string author = doc.Descendants(dc + "creator").FirstOrDefault()?.Value ?? "著者不明";
+
+                    // 著者を抽出（最初の1人だけ取得）
+                    string authorRaw = doc.Descendants("author").FirstOrDefault()?.Value ?? "著者不明";
+                    string author = authorRaw.Split(',').FirstOrDefault()?.Trim() ?? "著者不明";
 
                     return (title, author);
                 }
