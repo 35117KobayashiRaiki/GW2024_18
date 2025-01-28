@@ -23,6 +23,15 @@ namespace BookLendingSystem {
     /// </summary>
     public partial class LendingWindow : Window {
 
+        public class Loan {
+            public int Id { get; set; }
+            public string MemberID { get; set; }
+            public string Title { get; set; }
+            public string Author { get; set; }
+            public DateTime LoanDate { get; set; }
+            public DateTime ReturnDate { get; set; }
+        }
+
         public LendingWindow() {
             InitializeComponent();  // 初期化処理
         }
@@ -134,9 +143,48 @@ namespace BookLendingSystem {
             }
         }
 
-        // 貸出情報を登録または更新する
         private void RegisterLendingButton_Click(object sender, RoutedEventArgs e) {
+            // 入力されたデータを取得
+            string isbn = ISBNTextBox.Text.Trim();
+            string barcode = BarcodeTextBox.Text.Trim();
+            string memberId = MemberIDTextBox.Text.Trim();
+            string bookTitle = BookTitleTextBox.Text.Trim();
+            string author = AuthorTextBox.Text.Trim();
+            string loanDate = LoanDatePicker.Text.Trim();
+            string returnDate = ReturnDatePicker.Text.Trim();
 
+            if (string.IsNullOrEmpty(isbn) || string.IsNullOrEmpty(barcode) || string.IsNullOrEmpty(memberId) ||
+                string.IsNullOrEmpty(bookTitle) || string.IsNullOrEmpty(author) || string.IsNullOrEmpty(loanDate) ||
+                string.IsNullOrEmpty(returnDate)) {
+                MessageBox.Show("すべての項目を入力してください。");
+                return;
+            }
+
+            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
+                connection.Open();
+
+                // 貸出情報を Loans テーブルに登録するクエリ
+                string insertQuery = @"
+                INSERT INTO Loans (ISBN, MemberId, Title, Author, LoanDate, ReturnDate)
+                VALUES (@ISBN, @MemberId, @Title, @Author, @LoanDate, @ReturnDate);";
+
+                SQLiteCommand cmd = new SQLiteCommand(insertQuery, connection);
+                cmd.Parameters.AddWithValue("@ISBN", isbn);
+                cmd.Parameters.AddWithValue("@MemberId", memberId);
+                cmd.Parameters.AddWithValue("@Title", bookTitle);
+                cmd.Parameters.AddWithValue("@Author", author);
+                cmd.Parameters.AddWithValue("@LoanDate", loanDate);
+                cmd.Parameters.AddWithValue("@ReturnDate", returnDate);
+
+                // 実行
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0) {
+                    MessageBox.Show("貸出登録が完了しました。");
+                } else {
+                    MessageBox.Show("貸出登録に失敗しました。");
+                }
+            }
         }
 
         // 検索ボタンをクリックした際に貸出履歴を検索するメソッド
@@ -149,14 +197,75 @@ namespace BookLendingSystem {
             
         }
 
-        // 貸出履歴を更新する処理
-        private void UpdateLoan(int loanId) {
-            
+        private void DeleteLoanHistory(int loanId) {
+            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
+                connection.Open();
+
+                // 削除するためのSQLクエリ
+                string deleteQuery = "DELETE FROM Loans WHERE Id = @Id";
+                SQLiteCommand cmd = new SQLiteCommand(deleteQuery, connection);
+                cmd.Parameters.AddWithValue("@Id", loanId);
+
+                // クエリを実行して削除
+                cmd.ExecuteNonQuery();
+            }
         }
 
         // 削除ボタンがクリックされた際に貸出履歴を削除
         private void DeleteButton_Click(object sender, RoutedEventArgs e) {
-            
+            // 選択されたアイテムを取得
+            Loan selectedLoan = LoanHistoryListView.SelectedItem as Loan;
+
+            if (selectedLoan != null) {
+                // 確認ダイアログを表示
+                MessageBoxResult result = MessageBox.Show(
+                    $"「{selectedLoan.Title}」を削除してもよろしいですか？",
+                    "確認",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes) {
+                    // データベースから削除
+                    DeleteLoanHistory(selectedLoan.Id);
+
+                    // ListViewを更新
+                    LoadLoanHistory();  // 貸出履歴を再読み込み
+                }
+            } else {
+                MessageBox.Show("削除する貸出履歴を選択してください。");
+            }
+        }
+
+        private List<Loan> GetLoanHistory() {
+            List<Loan> loanHistory = new List<Loan>();
+
+            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
+                connection.Open();
+                string query = "SELECT Id, MemberId, Title, Author, LoanDate, ReturnDate FROM Loans";
+                SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                SQLiteDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read()) {
+                    loanHistory.Add(new Loan {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        MemberID = reader["MemberId"].ToString(),
+                        Title = reader["Title"].ToString(),
+                        Author = reader["Author"].ToString(),
+                        LoanDate = Convert.ToDateTime(reader["LoanDate"]),
+                        ReturnDate = Convert.ToDateTime(reader["ReturnDate"])
+                    });
+                }
+            }
+
+            return loanHistory;
+        }
+
+        private void LoadLoanHistory() {
+            // データベースから貸出履歴を取得
+            List<Loan> loanHistory = GetLoanHistory();
+
+            // ListViewにデータをバインド
+            LoanHistoryListView.ItemsSource = loanHistory;
         }
 
         // キャンセルボタンがクリックされた際にウィンドウを閉じる処理
@@ -168,6 +277,10 @@ namespace BookLendingSystem {
 
             // 現在のウィンドウを閉じる
             this.Close();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            LoadLoanHistory();
         }
     }
 }
