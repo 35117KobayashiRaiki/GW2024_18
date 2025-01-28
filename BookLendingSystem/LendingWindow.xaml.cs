@@ -56,6 +56,18 @@ namespace BookLendingSystem {
             }
         }
 
+        private void SetLoanDates() {
+            // 現在の日付を取得
+            DateTime currentDate = DateTime.Now;
+
+            // 貸出日を設定
+            LoanDatePicker.Text = currentDate.ToString("yyyy-MM-dd");
+
+            // 返却期限を設定（貸出日の1週間後）
+            DateTime dueDate = currentDate.AddDays(7);
+            ReturnDatePicker.Text = dueDate.ToString("yyyy-MM-dd");
+        }
+
         private async void ISBNTextBox_TextChanged(object sender, TextChangedEventArgs e) {
             string isbn = ISBNTextBox.Text.Trim();
 
@@ -64,6 +76,9 @@ namespace BookLendingSystem {
                 var (title, author) = await GetBookInfoFromISBNAsync(isbn);
                 BookTitleTextBox.Text = title;
                 AuthorTextBox.Text = author;
+
+                // 貸出日と返却期限を設定
+                SetLoanDates();
             }
         }
 
