@@ -82,16 +82,61 @@ namespace BookLendingSystem {
             }
         }
 
+        // バーコードがデータベースに存在するか確認するメソッド
+        private bool IsBarcodeExist(string barcode) {
+            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
+                connection.Open();
+
+                // Membersテーブルでバーコードの存在を確認
+                string query = "SELECT COUNT(*) FROM Members WHERE Barcode = @Barcode";
+                SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                cmd.Parameters.AddWithValue("@Barcode", barcode);
+
+                // バーコードが存在すれば1以上の数を返す
+                long count = (long)cmd.ExecuteScalar();
+                return count > 0;
+            }
+        }
+
+        // バーコードに対応する会員IDをデータベースから取得するメソッド
+        private string GetMemberIdByBarcode(string barcode) {
+            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
+                connection.Open();
+
+                // Membersテーブルからバーコードに対応する会員IDを取得
+                string query = "SELECT MemberId FROM Members WHERE Barcode = @Barcode";
+                SQLiteCommand cmd = new SQLiteCommand(query, connection);
+
+                // 会員IDを返す（なければnull）
+                cmd.Parameters.AddWithValue("@Barcode", barcode);
+                return cmd.ExecuteScalar()?.ToString();
+            }
+        }
+
+        // BarcodeTextBoxのTextChangedイベントハンドラ
+        private void BarcodeTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            string barcode = BarcodeTextBox.Text.Trim();
+
+            // バーコードが空の場合は処理を中断
+            if (string.IsNullOrEmpty(barcode)) {
+                MemberIDTextBox.Clear();
+                return;
+            }
+
+            // バーコードがデータベースに存在するか確認
+            if (IsBarcodeExist(barcode)) {
+                // バーコードに対応する会員IDを取得して表示
+                string dbMemberId = GetMemberIdByBarcode(barcode);
+                MemberIDTextBox.Text = dbMemberId;
+            } else {
+                // バーコードが存在しない場合、MemberIDTextBoxをクリア
+                MemberIDTextBox.Clear();
+            }
+        }
 
         // 貸出情報を登録または更新する
         private void RegisterLendingButton_Click(object sender, RoutedEventArgs e) {
-            
-        }
 
-
-        // 会員IDのバーコード読み取り時に会員情報を取得するメソッド
-        private void MemberIDTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-            
         }
 
         // 検索ボタンをクリックした際に貸出履歴を検索するメソッド
