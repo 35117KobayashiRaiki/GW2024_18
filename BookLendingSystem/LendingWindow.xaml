@@ -56,10 +56,12 @@
                 </Grid.RowDefinitions>
 
                 <!-- 検索機能 -->
-                <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="10">
+                <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="10">
                     <TextBox x:Name="SearchTextBox" Width="250" Margin="5" FontSize="20" Foreground="White" Background="#66000000"/>
                     <Button Content="検索" Width="100" Height="30" FontSize="20" Margin="5" Background="Transparent"
                             BorderBrush="Transparent" Foreground="White" Click="SearchButton_Click"/>
+                    <Button Content="検索リセット" Width="100" Height="30" FontSize="20" Margin="5" Background="Transparent"
+                            BorderBrush="Transparent" Foreground="White" Click="SearchResetButton_Click"/>
                 </StackPanel>
 
                 <!-- 図書情報入力フォーム -->
@@ -117,11 +119,11 @@
                 <ListView x:Name="LoanHistoryListView" Grid.Row="3" Margin="10" Background="#66000000" SelectionChanged="LoanHistoryListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="会員ID" DisplayMemberBinding="{Binding MemberID}" Width="100"/>
-                            <GridViewColumn Header="図書タイトル" DisplayMemberBinding="{Binding Title}" Width="150"/>
-                            <GridViewColumn Header="著者名" DisplayMemberBinding="{Binding Author}" Width="150"/>
-                            <GridViewColumn Header="貸出日" DisplayMemberBinding="{Binding LoanDate}" Width="100"/>
-                            <GridViewColumn Header="返却期限" DisplayMemberBinding="{Binding ReturnDate}" Width="100"/>
+                            <GridViewColumn Header="会員ID" DisplayMemberBinding="{Binding MemberID}" Width="70"/>
+                            <GridViewColumn Header="図書タイトル" DisplayMemberBinding="{Binding Title}" Width="200"/>
+                            <GridViewColumn Header="著者名" DisplayMemberBinding="{Binding Author}" Width="120"/>
+                            <GridViewColumn Header="貸出日" DisplayMemberBinding="{Binding LoanDate}" Width="150"/>
+                            <GridViewColumn Header="返却期限" DisplayMemberBinding="{Binding ReturnDate}" Width="150"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

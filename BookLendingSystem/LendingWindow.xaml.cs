@@ -23,15 +23,16 @@ namespace BookLendingSystem {
     /// </summary>
     public partial class LendingWindow : Window {
 
+        // 貸出情報を保持するクラス
         public class Loan {
-            public int Id { get; set; }
-            public string ISBN { get; set; }
-            public string Barcode { get; set; }
-            public string MemberID { get; set; }
-            public string Title { get; set; }
-            public string Author { get; set; }
-            public DateTime LoanDate { get; set; }
-            public DateTime ReturnDate { get; set; }
+            public int Id { get; set; }  // 貸出ID
+            public string ISBN { get; set; }  // 書籍のISBN
+            public string Barcode { get; set; }  // 書籍のバーコード
+            public string MemberID { get; set; }  // 会員ID
+            public string Title { get; set; }  // 書籍のタイトル
+            public string Author { get; set; }  // 著者名
+            public DateTime LoanDate { get; set; }  // 貸出日
+            public DateTime ReturnDate { get; set; }  // 返却予定日
         }
 
         public LendingWindow() {
@@ -39,26 +40,30 @@ namespace BookLendingSystem {
             LoadLoanHistory(); // 貸出履歴を読み込む
         }
 
+        // ISBNから書籍情報（タイトルと著者）を非同期で取得
         private async Task<(string Title, string Author)> GetBookInfoFromISBNAsync(string isbn) {
             string apiUrl = $"https://iss.ndl.go.jp/api/opensearch?isbn={isbn}";
             using (HttpClient client = new HttpClient()) {
                 try {
                     // APIにリクエストを送信
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
-                    response.EnsureSuccessStatusCode();
-                    string xmlContent = await response.Content.ReadAsStringAsync();
+                    response.EnsureSuccessStatusCode(); // ステータスコードが成功か確認
+                    string xmlContent = await response.Content.ReadAsStringAsync(); // レスポンスを文字列として取得
 
                     // XMLデータを解析
                     XDocument doc = XDocument.Parse(xmlContent);
-                    XNamespace dc = "http://purl.org/dc/elements/1.1/";
+                    XNamespace dc = "http://purl.org/dc/elements/1.1/"; // 著者やタイトルを取得するための名前空間
+
 
                     // タイトルと著者を抽出
                     string title = doc.Descendants(dc + "title").FirstOrDefault()?.Value ?? "タイトル不明";
 
                     // 著者を抽出（最初の1人だけ取得）
                     string authorRaw = doc.Descendants("author").FirstOrDefault()?.Value ?? "著者不明";
+                    // 著者が複数いる場合は最初の著者を取得
                     string author = authorRaw.Split(',').FirstOrDefault()?.Trim() ?? "著者不明";
 
+                    // タイトルと著者を返す
                     return (title, author);
                 }
                 catch (Exception ex) {
@@ -68,6 +73,7 @@ namespace BookLendingSystem {
             }
         }
 
+        // 貸出日と返却日を設定
         private void SetLoanDates() {
             // 現在の日付を取得
             DateTime currentDate = DateTime.Now;
@@ -80,13 +86,18 @@ namespace BookLendingSystem {
             ReturnDatePicker.Text = dueDate.ToString("yyyy-MM-dd");
         }
 
+        // ISBNのテキストが変更されると呼ばれるイベントハンドラ
         private async void ISBNTextBox_TextChanged(object sender, TextChangedEventArgs e) {
             string isbn = ISBNTextBox.Text.Trim();
 
+            // ISBNが10桁または13桁の場合のみ処理
             if (isbn.Length == 13 || isbn.Length == 10) // ISBNの長さチェック
             {
+                // ISBNからタイトルと著者を取得
                 var (title, author) = await GetBookInfoFromISBNAsync(isbn);
+                // 書籍タイトルを表示
                 BookTitleTextBox.Text = title;
+                // 著者名を表示
                 AuthorTextBox.Text = author;
 
                 // 貸出日と返却期限を設定
@@ -146,6 +157,7 @@ namespace BookLendingSystem {
             }
         }
 
+        // 「貸出登録」ボタンがクリックされたときの処理
         private void RegisterLendingButton_Click(object sender, RoutedEventArgs e) {
             // 入力されたデータを取得
             string isbn = ISBNTextBox.Text.Trim();
@@ -181,13 +193,13 @@ namespace BookLendingSystem {
                 cmd.Parameters.AddWithValue("@LoanDate", loanDate);
                 cmd.Parameters.AddWithValue("@ReturnDate", returnDate);
 
-                // 実行
+                // SQLクエリを実行
                 int result = cmd.ExecuteNonQuery();
 
                 if (result > 0) {
                     MessageBox.Show("貸出登録が完了しました。");
 
-                    LoadLoanHistory(); // リストを更新
+                    LoadLoanHistory(); // 貸出履歴を再読み込み
 
                     // 入力欄をクリアする
                     ClearInputFields();
@@ -198,8 +210,9 @@ namespace BookLendingSystem {
         }
 
 
-        // 入力欄をクリアする
+        // 入力欄をクリアするメソッド
         private void ClearInputFields() {
+            SearchTextBox.Text = "";
             ISBNTextBox.Text = "";
             BarcodeTextBox.Text = "";
             MemberIDTextBox.Text = "";
@@ -209,9 +222,69 @@ namespace BookLendingSystem {
             ReturnDatePicker.SelectedDate = null;
         }
 
-        // 検索ボタンをクリックした際に貸出履歴を検索するメソッド
+        // 検索ボタンをクリックしたときの処理
         private void SearchButton_Click(object sender, RoutedEventArgs e) {
-            
+            string keyword = SearchTextBox.Text.Trim();  // 検索ボックスからキーワードを取得
+
+            // 検索テキストが空でない場合、貸出履歴を検索
+            if (string.IsNullOrEmpty(keyword)) {
+                MessageBox.Show("検索キーワードを入力してください。");
+                return;
+            }
+
+            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
+                connection.Open();
+
+                // 貸出履歴を検索するSQLクエリ
+                string query = @"
+                SELECT Id, ISBN, Barcode, MemberId, Title, Author, LoanDate, ReturnDate
+                FROM Loans
+                WHERE ISBN LIKE @Keyword 
+                OR Barcode LIKE @Keyword 
+                OR MemberId LIKE @Keyword 
+                OR Title LIKE @Keyword 
+                OR Author LIKE @Keyword 
+                OR LoanDate LIKE @Keyword 
+                OR ReturnDate LIKE @Keyword";
+
+                SQLiteCommand cmd = new SQLiteCommand(query, connection);
+                cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");  // 部分一致検索
+
+                // 結果をリストに変換
+                List<Loan> loans = new List<Loan>();
+                using (SQLiteDataReader reader = cmd.ExecuteReader()) {
+                    while (reader.Read()) {
+                        loans.Add(new Loan {
+                            Id = reader.GetInt32(0),
+                            ISBN = reader.GetString(1),
+                            Barcode = reader.GetString(2),
+                            MemberID = reader.GetString(3),
+                            Title = reader.GetString(4),
+                            Author = reader.GetString(5),
+                            LoanDate = DateTime.Parse(reader.GetString(6)),
+                            ReturnDate = DateTime.Parse(reader.GetString(7))
+                        });
+                    }
+                }
+
+                // ListViewに貸出履歴を表示
+                LoanHistoryListView.ItemsSource = loans;
+
+                // 入力欄をクリアする
+                ISBNTextBox.Text = "";
+                BarcodeTextBox.Text = "";
+                MemberIDTextBox.Text = "";
+                BookTitleTextBox.Text = "";
+                AuthorTextBox.Text = "";
+                LoanDatePicker.SelectedDate = null;
+                ReturnDatePicker.SelectedDate = null;
+            }
+        }
+
+        // 検索リセットボタンをクリックしたときの処理
+        private void SearchResetButton_Click(object sender, RoutedEventArgs e) {
+            LoadLoanHistory();  // 検索ボックスをクリア
+            ClearInputFields(); // 全ての貸出履歴を再読み込み
         }
 
         // 更新ボタンがクリックされた際に、選択された貸出履歴を編集できるようにする
@@ -247,9 +320,9 @@ namespace BookLendingSystem {
 
                 // 貸出情報を更新するクエリ
                 string updateQuery = @"
-        UPDATE Loans
-        SET ISBN = @ISBN, Barcode = @Barcode, MemberId = @MemberId, Title = @Title, Author = @Author, LoanDate = @LoanDate, ReturnDate = @ReturnDate
-        WHERE Id = @Id;";
+                UPDATE Loans
+                SET ISBN = @ISBN, Barcode = @Barcode, MemberId = @MemberId, Title = @Title, Author = @Author, LoanDate = @LoanDate, ReturnDate = @ReturnDate
+                WHERE Id = @Id;";
 
                 SQLiteCommand cmd = new SQLiteCommand(updateQuery, connection);
                 cmd.Parameters.AddWithValue("@ISBN", isbn);
@@ -277,8 +350,7 @@ namespace BookLendingSystem {
             }
         }
 
-
-
+        // 選択した貸出情報を削除するメソッド
         private void DeleteButton_Click(object sender, RoutedEventArgs e) {
             // ListViewで選択されている項目を取得
             Loan selectedLoan = (Loan)LoanHistoryListView.SelectedItem;
@@ -318,6 +390,7 @@ namespace BookLendingSystem {
             }
         }
 
+        // 貸出履歴を全て読み込むメソッド
         private void LoadLoanHistory() {
             using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
                 connection.Open();
@@ -348,23 +421,22 @@ namespace BookLendingSystem {
             }
         }
 
+        // ListViewで選択された貸出情報をフォームに表示
         private void LoanHistoryListView_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            // 
             Loan selectedLoan = (Loan)LoanHistoryListView.SelectedItem;
 
             if (selectedLoan != null) {
-                // 
                 ISBNTextBox.Text = selectedLoan.ISBN;
                 BarcodeTextBox.Text = selectedLoan.Barcode;
                 MemberIDTextBox.Text = selectedLoan.MemberID;
                 BookTitleTextBox.Text = selectedLoan.Title;
                 AuthorTextBox.Text = selectedLoan.Author;
-                LoanDatePicker.Text = selectedLoan.LoanDate.ToString("yyyy-MM-dd");
-                ReturnDatePicker.Text = selectedLoan.ReturnDate.ToString("yyyy-MM-dd");
+                LoanDatePicker.Text = selectedLoan.LoanDate.ToString("yyyy-MM-dd"); ;
+                ReturnDatePicker.Text = selectedLoan.ReturnDate.ToString("yyyy-MM-dd"); ;
             }
         }
 
-        // キャンセルボタンがクリックされた際にウィンドウを閉じる処理
+        // 「キャンセル」ボタンをクリックしたときの処理
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
             var selectionWindow = Application.Current.Windows.OfType<SelectionWindow>().FirstOrDefault();
             if (selectionWindow != null) {
@@ -375,5 +447,6 @@ namespace BookLendingSystem {
             this.Close();
         }
 
+        
     }
 }
