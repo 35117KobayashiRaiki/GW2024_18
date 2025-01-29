@@ -216,7 +216,65 @@ namespace BookLendingSystem {
 
         // 更新ボタンがクリックされた際に、選択された貸出履歴を編集できるようにする
         private void UpdateButton_Click(object sender, RoutedEventArgs e) {
-            
+            // 入力されたデータを取得
+            string isbn = ISBNTextBox.Text.Trim();
+            string barcode = BarcodeTextBox.Text.Trim();
+            string memberId = MemberIDTextBox.Text.Trim();
+            string bookTitle = BookTitleTextBox.Text.Trim();
+            string author = AuthorTextBox.Text.Trim();
+            string loanDate = LoanDatePicker.Text.Trim();
+            string returnDate = ReturnDatePicker.Text.Trim();
+
+            // 入力項目がすべて記入されているか確認
+            if (string.IsNullOrEmpty(isbn) || string.IsNullOrEmpty(barcode) || string.IsNullOrEmpty(memberId) ||
+                string.IsNullOrEmpty(bookTitle) || string.IsNullOrEmpty(author) || string.IsNullOrEmpty(loanDate) ||
+                string.IsNullOrEmpty(returnDate)) {
+                MessageBox.Show("すべての項目を入力してください。");
+                return;
+            }
+
+            // ListViewで選択されている項目を取得
+            Loan selectedLoan = (Loan)LoanHistoryListView.SelectedItem;
+
+            if (selectedLoan == null) {
+                MessageBox.Show("更新する貸出データを選択してください。");
+                return;
+            }
+
+            // データベースの貸出情報を更新する
+            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
+                connection.Open();
+
+                // 貸出情報を更新するクエリ
+                string updateQuery = @"
+        UPDATE Loans
+        SET ISBN = @ISBN, Barcode = @Barcode, MemberId = @MemberId, Title = @Title, Author = @Author, LoanDate = @LoanDate, ReturnDate = @ReturnDate
+        WHERE Id = @Id;";
+
+                SQLiteCommand cmd = new SQLiteCommand(updateQuery, connection);
+                cmd.Parameters.AddWithValue("@ISBN", isbn);
+                cmd.Parameters.AddWithValue("@Barcode", barcode);
+                cmd.Parameters.AddWithValue("@MemberId", memberId);
+                cmd.Parameters.AddWithValue("@Title", bookTitle);
+                cmd.Parameters.AddWithValue("@Author", author);
+                cmd.Parameters.AddWithValue("@LoanDate", loanDate);
+                cmd.Parameters.AddWithValue("@ReturnDate", returnDate);
+                cmd.Parameters.AddWithValue("@Id", selectedLoan.Id);  // 更新対象のID
+
+                // 実行
+                int result = cmd.ExecuteNonQuery();
+
+                if (result > 0) {
+                    MessageBox.Show("貸出情報が更新されました。");
+
+                    LoadLoanHistory(); // リストを更新
+
+                    // 入力欄をクリアする
+                    ClearInputFields();
+                } else {
+                    MessageBox.Show("更新に失敗しました。");
+                }
+            }
         }
 
 
