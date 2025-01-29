@@ -40,6 +40,7 @@ namespace BookLendingSystem {
                 CREATE TABLE IF NOT EXISTS Loans (
                     Id INTEGER PRIMARY KEY AUTOINCREMENT,
                     ISBN TEXT NOT NULL,
+                    Barcode TEXT NOT NULL,
                     MemberId TEXT NOT NULL,
                     Title TEXT NOT NULL,
                     Author TEXT NOT NULL,
@@ -49,6 +50,16 @@ namespace BookLendingSystem {
 
                 SQLiteCommand createLoansCmd = new SQLiteCommand(createLoansTableQuery, conn);
                 createLoansCmd.ExecuteNonQuery();
+
+                // LoansテーブルにBarcodeカラムがない場合、追加する
+                //string addBarcodeColumnQuery = @"
+                //PRAGMA foreign_keys=off; -- 外部キー制約を一時的に無効化
+                //ALTER TABLE Loans ADD COLUMN Barcode TEXT;
+                //PRAGMA foreign_keys=on; -- 外部キー制約を再度有効化
+                //";
+                //SQLiteCommand addBarcodeColumnCmd = new SQLiteCommand(addBarcodeColumnQuery, conn);
+                //addBarcodeColumnCmd.ExecuteNonQuery();
+
             }
         }
     }

@@ -114,7 +114,7 @@
                 </StackPanel>
 
                 <!-- 貸出履歴リスト -->
-                <ListView x:Name="LoanHistoryListView" Grid.Row="3" Margin="10" Background="#66000000">
+                <ListView x:Name="LoanHistoryListView" Grid.Row="3" Margin="10" Background="#66000000" SelectionChanged="LoanHistoryListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="会員ID" DisplayMemberBinding="{Binding MemberID}" Width="100"/>
