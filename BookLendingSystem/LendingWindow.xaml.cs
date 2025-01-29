@@ -34,6 +34,7 @@ namespace BookLendingSystem {
 
         public LendingWindow() {
             InitializeComponent();  // 初期化処理
+            LoadLoanHistory(); // 貸出履歴を読み込む
         }
 
         private async Task<(string Title, string Author)> GetBookInfoFromISBNAsync(string isbn) {
@@ -181,10 +182,27 @@ namespace BookLendingSystem {
 
                 if (result > 0) {
                     MessageBox.Show("貸出登録が完了しました。");
+
+                    LoadLoanHistory(); // リストを更新
+
+                    // 入力欄をクリアする
+                    ClearInputFields();
+
                 } else {
                     MessageBox.Show("貸出登録に失敗しました。");
                 }
             }
+        }
+
+        // 入力欄をクリアする
+        private void ClearInputFields() {
+            ISBNTextBox.Text = "";
+            BarcodeTextBox.Text = "";
+            MemberIDTextBox.Text = "";
+            BookTitleTextBox.Text = "";
+            AuthorTextBox.Text = "";
+            LoanDatePicker.SelectedDate = null;
+            ReturnDatePicker.SelectedDate = null;
         }
 
         // 検索ボタンをクリックした際に貸出履歴を検索するメソッド
@@ -197,76 +215,73 @@ namespace BookLendingSystem {
             
         }
 
-        private void DeleteLoanHistory(int loanId) {
+
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e) {
+            // ListViewで選択されている項目を取得
+            Loan selectedLoan = (Loan)LoanHistoryListView.SelectedItem;
+
+            if (selectedLoan == null) {
+                MessageBox.Show("削除する貸出データを選択してください。");
+                return;
+            }
+
+            // 削除の確認ダイアログを表示
+            var result = MessageBox.Show("選択された貸出データを削除しますか？", "確認", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            if (result == MessageBoxResult.No) {
+                return;
+            }
+
+            // データベースから該当のデータを削除
             using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
                 connection.Open();
 
-                // 削除するためのSQLクエリ
                 string deleteQuery = "DELETE FROM Loans WHERE Id = @Id";
                 SQLiteCommand cmd = new SQLiteCommand(deleteQuery, connection);
-                cmd.Parameters.AddWithValue("@Id", loanId);
+                cmd.Parameters.AddWithValue("@Id", selectedLoan.Id);
 
-                // クエリを実行して削除
-                cmd.ExecuteNonQuery();
-            }
-        }
+                int rowsAffected = cmd.ExecuteNonQuery();
 
-        // 削除ボタンがクリックされた際に貸出履歴を削除
-        private void DeleteButton_Click(object sender, RoutedEventArgs e) {
-            // 選択されたアイテムを取得
-            Loan selectedLoan = LoanHistoryListView.SelectedItem as Loan;
+                if (rowsAffected > 0) {
+                    MessageBox.Show("削除が完了しました。");
 
-            if (selectedLoan != null) {
-                // 確認ダイアログを表示
-                MessageBoxResult result = MessageBox.Show(
-                    $"「{selectedLoan.Title}」を削除してもよろしいですか？",
-                    "確認",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
-
-                if (result == MessageBoxResult.Yes) {
-                    // データベースから削除
-                    DeleteLoanHistory(selectedLoan.Id);
-
-                    // ListViewを更新
-                    LoadLoanHistory();  // 貸出履歴を再読み込み
-                }
-            } else {
-                MessageBox.Show("削除する貸出履歴を選択してください。");
-            }
-        }
-
-        private List<Loan> GetLoanHistory() {
-            List<Loan> loanHistory = new List<Loan>();
-
-            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
-                connection.Open();
-                string query = "SELECT Id, MemberId, Title, Author, LoanDate, ReturnDate FROM Loans";
-                SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                SQLiteDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read()) {
-                    loanHistory.Add(new Loan {
-                        Id = Convert.ToInt32(reader["Id"]),
-                        MemberID = reader["MemberId"].ToString(),
-                        Title = reader["Title"].ToString(),
-                        Author = reader["Author"].ToString(),
-                        LoanDate = Convert.ToDateTime(reader["LoanDate"]),
-                        ReturnDate = Convert.ToDateTime(reader["ReturnDate"])
-                    });
+                    // リストビューを更新する
+                    LoadLoanHistory();
+                } else {
+                    MessageBox.Show("削除に失敗しました。");
                 }
             }
-
-            return loanHistory;
         }
 
         private void LoadLoanHistory() {
-            // データベースから貸出履歴を取得
-            List<Loan> loanHistory = GetLoanHistory();
+            using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
+                connection.Open();
 
-            // ListViewにデータをバインド
-            LoanHistoryListView.ItemsSource = loanHistory;
+                // 貸出履歴を取得するクエリ
+                string query = "SELECT Id, MemberId, Title, Author, LoanDate, ReturnDate FROM Loans";
+                SQLiteCommand cmd = new SQLiteCommand(query, connection);
+
+                // 結果をリストに変換
+                List<Loan> loans = new List<Loan>();
+                using (SQLiteDataReader reader = cmd.ExecuteReader()) {
+                    while (reader.Read()) {
+                        loans.Add(new Loan {
+                            Id = reader.GetInt32(0),
+                            MemberID = reader.GetString(1),
+                            Title = reader.GetString(2),
+                            Author = reader.GetString(3),
+                            LoanDate = DateTime.Parse(reader.GetString(4)),
+                            ReturnDate = DateTime.Parse(reader.GetString(5))
+                        });
+                    }
+                }
+
+                // ListView にデータを設定
+                LoanHistoryListView.ItemsSource = loans;
+            }
         }
+
+
 
         // キャンセルボタンがクリックされた際にウィンドウを閉じる処理
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
@@ -279,8 +294,5 @@ namespace BookLendingSystem {
             this.Close();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e) {
-            LoadLoanHistory();
-        }
     }
 }

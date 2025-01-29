@@ -117,7 +117,6 @@
                 <ListView x:Name="LoanHistoryListView" Grid.Row="3" Margin="10" Background="#66000000">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="ISBN" DisplayMemberBinding="{Binding ISBN}" Width="100"/>
                             <GridViewColumn Header="会員ID" DisplayMemberBinding="{Binding MemberID}" Width="100"/>
                             <GridViewColumn Header="図書タイトル" DisplayMemberBinding="{Binding Title}" Width="150"/>
                             <GridViewColumn Header="著者名" DisplayMemberBinding="{Binding Author}" Width="150"/>
