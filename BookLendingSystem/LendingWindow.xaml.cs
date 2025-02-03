@@ -76,14 +76,14 @@ namespace BookLendingSystem {
         // 貸出日と返却日を設定
         private void SetLoanDates() {
             // 現在の日付を取得
-            DateTime currentDate = DateTime.Now;
+            DateTime currentDateTime = DateTime.Now;
 
             // 貸出日を設定
-            LoanDatePicker.Text = currentDate.ToString("yyyy-MM-dd");
+            LoanDatePicker.SelectedDate = currentDateTime;
 
             // 返却期限を設定（貸出日の1週間後）
-            DateTime dueDate = currentDate.AddDays(7);
-            ReturnDatePicker.Text = dueDate.ToString("yyyy-MM-dd");
+            ReturnDatePicker.SelectedDate = currentDateTime.AddDays(7);
+            
         }
 
         // ISBNのテキストが変更されると呼ばれるイベントハンドラ
@@ -165,8 +165,8 @@ namespace BookLendingSystem {
             string memberId = MemberIDTextBox.Text.Trim();
             string bookTitle = BookTitleTextBox.Text.Trim();
             string author = AuthorTextBox.Text.Trim();
-            string loanDate = LoanDatePicker.Text.Trim();
-            string returnDate = ReturnDatePicker.Text.Trim();
+            string loanDate = LoanDatePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
+            string returnDate = ReturnDatePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
 
             // 入力項目がすべて記入されているか確認
             if (string.IsNullOrEmpty(isbn) || string.IsNullOrEmpty(barcode) || string.IsNullOrEmpty(memberId) ||
@@ -295,8 +295,8 @@ namespace BookLendingSystem {
             string memberId = MemberIDTextBox.Text.Trim();
             string bookTitle = BookTitleTextBox.Text.Trim();
             string author = AuthorTextBox.Text.Trim();
-            string loanDate = LoanDatePicker.Text.Trim();
-            string returnDate = ReturnDatePicker.Text.Trim();
+            string loanDate = LoanDatePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
+            string returnDate = ReturnDatePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
 
             // 入力項目がすべて記入されているか確認
             if (string.IsNullOrEmpty(isbn) || string.IsNullOrEmpty(barcode) || string.IsNullOrEmpty(memberId) ||
@@ -431,8 +431,8 @@ namespace BookLendingSystem {
                 MemberIDTextBox.Text = selectedLoan.MemberID;
                 BookTitleTextBox.Text = selectedLoan.Title;
                 AuthorTextBox.Text = selectedLoan.Author;
-                LoanDatePicker.Text = selectedLoan.LoanDate.ToString("yyyy-MM-dd"); ;
-                ReturnDatePicker.Text = selectedLoan.ReturnDate.ToString("yyyy-MM-dd"); ;
+                LoanDatePicker.SelectedDate = selectedLoan.LoanDate;
+                ReturnDatePicker.SelectedDate = selectedLoan.ReturnDate; ;
             }
         }
 
