@@ -60,6 +60,7 @@ namespace BookLendingSystem {
                 //SQLiteCommand addBarcodeColumnCmd = new SQLiteCommand(addBarcodeColumnQuery, conn);
                 //addBarcodeColumnCmd.ExecuteNonQuery();
 
+
             }
         }
     }

@@ -74,7 +74,10 @@
 
                     <!-- バーコード番号 -->
                     <TextBlock Text="バーコード番号" VerticalAlignment="Center" FontSize="15" Foreground="White"/>
-                    <TextBox x:Name="BarcodeTextBox" Width="300" Height="25" FontSize="20" Margin="5" Background="#66000000" Foreground="White" BorderBrush="#FF6A6A6A" BorderThickness="1"/>
+                    <TextBox x:Name="BarcodeTextBox" Width="300" Height="25"
+                             FontSize="20" Margin="5" Background="#66000000"
+                             Foreground="White" BorderBrush="#FF6A6A6A"
+                             BorderThickness="1" TextChanged="BarcodeTextBox_TextChanged"/>
 
                     <!-- 会員ID -->
                     <TextBlock Text="会員ID" VerticalAlignment="Center" FontSize="15" Foreground="White"/>
