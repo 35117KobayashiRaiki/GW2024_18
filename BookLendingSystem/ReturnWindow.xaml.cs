@@ -118,6 +118,7 @@ namespace BookLendingSystem {
             LoanDatePicker.SelectedDate = null;
             ReturnDeadlinePicker.SelectedDate = null;
             ReturnDatePicker.SelectedDate = null;
+            SearchTextBox.Clear();
         }
 
 
@@ -184,9 +185,63 @@ namespace BookLendingSystem {
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e) {
+            string keyword = SearchTextBox.Text;  // ユーザーが入力した検索キーワードを取得
+            string query = @"
+            SELECT Id, ISBN, Barcode, MemberId, Title, Author, LoanDate, ReturnDeadline, ReturnDate
+            FROM Loans
+            WHERE ISBN LIKE @Keyword 
+            OR Barcode LIKE @Keyword 
+            OR MemberId LIKE @Keyword 
+            OR Title LIKE @Keyword 
+            OR Author LIKE @Keyword 
+            OR LoanDate LIKE @Keyword 
+            OR ReturnDeadline LIKE @Keyword
+            OR ReturnDate LIKE @Keyword";
 
+            // キーワードに % を追加して部分一致検索を実行
+            keyword = "%" + keyword + "%";  // 部分一致検索のため両端に % を追加
+
+            using (SQLiteConnection conn = new SQLiteConnection(App.DbConnectionString)) {
+                conn.Open();
+                using (SQLiteCommand cmd = new SQLiteCommand(query, conn)) {
+                    cmd.Parameters.AddWithValue("@Keyword", keyword);
+
+                    using (SQLiteDataReader reader = cmd.ExecuteReader()) {
+                        List<Loan> loanHistory = new List<Loan>();
+                        while (reader.Read()) {
+                            Loan loan = new Loan {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                ISBN = reader["ISBN"].ToString(),
+                                Barcode = reader["Barcode"].ToString(),
+                                MemberId = reader["MemberId"].ToString(),
+                                Title = reader["Title"].ToString(),
+                                Author = reader["Author"].ToString(),
+                                LoanDate = Convert.ToDateTime(reader["LoanDate"]),
+                                ReturnDeadline = Convert.ToDateTime(reader["ReturnDeadline"]),
+                                ReturnDate = reader["ReturnDate"] != DBNull.Value ? Convert.ToDateTime(reader["ReturnDate"]) : (DateTime?)null
+                            };
+                            loanHistory.Add(loan);
+                        }
+                        // 検索結果を表示（例えば、ListViewなどに表示）
+                        LoanHistoryListView.ItemsSource = loanHistory;
+
+                        ISBNTextBox.Clear();
+                        BarcodeTextBox.Clear();
+                        MemberIDTextBox.Clear();
+                        BookTitleTextBox.Clear();
+                        AuthorTextBox.Clear();
+                        LoanDatePicker.SelectedDate = null;
+                        ReturnDeadlinePicker.SelectedDate = null;
+                        ReturnDatePicker.SelectedDate = null;
+                    }
+                }
+            }
         }
 
+        private void SearchResetButton_Click(object sender, RoutedEventArgs e) {
+            ClearInputFields();
+            FetchReturnedBooks();
+        }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
             // MainWindowがすでに開かれている場合に再表示する
@@ -199,9 +254,7 @@ namespace BookLendingSystem {
             this.Close();
         }
 
-        private void SearchResetButton_Click(object sender, RoutedEventArgs e) {
-
-        }
+        
 
         private void FetchReturnedBooks() {
             using (SQLiteConnection conn = new SQLiteConnection(App.DbConnectionString)) {
