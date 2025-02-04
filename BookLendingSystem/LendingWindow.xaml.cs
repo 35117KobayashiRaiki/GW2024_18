@@ -32,7 +32,7 @@ namespace BookLendingSystem {
             public string Title { get; set; }  // 書籍のタイトル
             public string Author { get; set; }  // 著者名
             public DateTime LoanDate { get; set; }  // 貸出日
-            public DateTime ReturnDate { get; set; }  // 返却予定日
+            public DateTime ReturnDeadline { get; set; }  // 返却予定日
         }
 
         public LendingWindow() {
@@ -82,7 +82,7 @@ namespace BookLendingSystem {
             LoanDatePicker.SelectedDate = currentDateTime;
 
             // 返却期限を設定（貸出日の1週間後）
-            ReturnDatePicker.SelectedDate = currentDateTime.AddDays(7);
+            ReturnDeadlinePicker.SelectedDate = currentDateTime.AddDays(7);
             
         }
 
@@ -166,12 +166,12 @@ namespace BookLendingSystem {
             string bookTitle = BookTitleTextBox.Text.Trim();
             string author = AuthorTextBox.Text.Trim();
             string loanDate = LoanDatePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
-            string returnDate = ReturnDatePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
+            string returnDeadline = ReturnDeadlinePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
 
             // 入力項目がすべて記入されているか確認
             if (string.IsNullOrEmpty(isbn) || string.IsNullOrEmpty(barcode) || string.IsNullOrEmpty(memberId) ||
                 string.IsNullOrEmpty(bookTitle) || string.IsNullOrEmpty(author) || string.IsNullOrEmpty(loanDate) ||
-                string.IsNullOrEmpty(returnDate)) {
+                string.IsNullOrEmpty(returnDeadline)) {
                 MessageBox.Show("すべての項目を入力してください。");
                 return;
             }
@@ -181,8 +181,8 @@ namespace BookLendingSystem {
 
                 // 貸出情報を Loans テーブルに登録するクエリ
                 string insertQuery = @"
-                INSERT INTO Loans (ISBN, Barcode, MemberId, Title, Author, LoanDate, ReturnDate)
-                VALUES (@ISBN, @Barcode, @MemberId, @Title, @Author, @LoanDate, @ReturnDate);";
+                INSERT INTO Loans (ISBN, Barcode, MemberId, Title, Author, LoanDate, ReturnDeadline)
+                VALUES (@ISBN, @Barcode, @MemberId, @Title, @Author, @LoanDate, @ReturnDeadline);";
 
                 SQLiteCommand cmd = new SQLiteCommand(insertQuery, connection);
                 cmd.Parameters.AddWithValue("@ISBN", isbn);
@@ -191,7 +191,7 @@ namespace BookLendingSystem {
                 cmd.Parameters.AddWithValue("@Title", bookTitle);
                 cmd.Parameters.AddWithValue("@Author", author);
                 cmd.Parameters.AddWithValue("@LoanDate", loanDate);
-                cmd.Parameters.AddWithValue("@ReturnDate", returnDate);
+                cmd.Parameters.AddWithValue("@ReturnDeadline", returnDeadline);
 
                 // SQLクエリを実行
                 int result = cmd.ExecuteNonQuery();
@@ -219,7 +219,7 @@ namespace BookLendingSystem {
             BookTitleTextBox.Text = "";
             AuthorTextBox.Text = "";
             LoanDatePicker.SelectedDate = null;
-            ReturnDatePicker.SelectedDate = null;
+            ReturnDeadlinePicker.SelectedDate = null;
         }
 
         // 検索ボタンをクリックしたときの処理
@@ -237,7 +237,7 @@ namespace BookLendingSystem {
 
                 // 貸出履歴を検索するSQLクエリ
                 string query = @"
-                SELECT Id, ISBN, Barcode, MemberId, Title, Author, LoanDate, ReturnDate
+                SELECT Id, ISBN, Barcode, MemberId, Title, Author, LoanDate, ReturnDeadline
                 FROM Loans
                 WHERE ISBN LIKE @Keyword 
                 OR Barcode LIKE @Keyword 
@@ -245,7 +245,7 @@ namespace BookLendingSystem {
                 OR Title LIKE @Keyword 
                 OR Author LIKE @Keyword 
                 OR LoanDate LIKE @Keyword 
-                OR ReturnDate LIKE @Keyword";
+                OR ReturnDeadline LIKE @Keyword";
 
                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
                 cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");  // 部分一致検索
@@ -262,7 +262,7 @@ namespace BookLendingSystem {
                             Title = reader.GetString(4),
                             Author = reader.GetString(5),
                             LoanDate = DateTime.Parse(reader.GetString(6)),
-                            ReturnDate = DateTime.Parse(reader.GetString(7))
+                            ReturnDeadline = DateTime.Parse(reader.GetString(7))
                         });
                     }
                 }
@@ -277,7 +277,7 @@ namespace BookLendingSystem {
                 BookTitleTextBox.Text = "";
                 AuthorTextBox.Text = "";
                 LoanDatePicker.SelectedDate = null;
-                ReturnDatePicker.SelectedDate = null;
+                ReturnDeadlinePicker.SelectedDate = null;
             }
         }
 
@@ -296,12 +296,12 @@ namespace BookLendingSystem {
             string bookTitle = BookTitleTextBox.Text.Trim();
             string author = AuthorTextBox.Text.Trim();
             string loanDate = LoanDatePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
-            string returnDate = ReturnDatePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
+            string returnDeadline = ReturnDeadlinePicker.SelectedDate?.ToString("yyyy-MM-dd HH:mm:ss");  // 時間も含めてフォーマット
 
             // 入力項目がすべて記入されているか確認
             if (string.IsNullOrEmpty(isbn) || string.IsNullOrEmpty(barcode) || string.IsNullOrEmpty(memberId) ||
                 string.IsNullOrEmpty(bookTitle) || string.IsNullOrEmpty(author) || string.IsNullOrEmpty(loanDate) ||
-                string.IsNullOrEmpty(returnDate)) {
+                string.IsNullOrEmpty(returnDeadline)) {
                 MessageBox.Show("すべての項目を入力してください。");
                 return;
             }
@@ -321,7 +321,7 @@ namespace BookLendingSystem {
                 // 貸出情報を更新するクエリ
                 string updateQuery = @"
                 UPDATE Loans
-                SET ISBN = @ISBN, Barcode = @Barcode, MemberId = @MemberId, Title = @Title, Author = @Author, LoanDate = @LoanDate, ReturnDate = @ReturnDate
+                SET ISBN = @ISBN, Barcode = @Barcode, MemberId = @MemberId, Title = @Title, Author = @Author, LoanDate = @LoanDate, ReturnDeadline = @ReturnDeadline
                 WHERE Id = @Id;";
 
                 SQLiteCommand cmd = new SQLiteCommand(updateQuery, connection);
@@ -331,7 +331,7 @@ namespace BookLendingSystem {
                 cmd.Parameters.AddWithValue("@Title", bookTitle);
                 cmd.Parameters.AddWithValue("@Author", author);
                 cmd.Parameters.AddWithValue("@LoanDate", loanDate);
-                cmd.Parameters.AddWithValue("@ReturnDate", returnDate);
+                cmd.Parameters.AddWithValue("@ReturnDeadline", returnDeadline);
                 cmd.Parameters.AddWithValue("@Id", selectedLoan.Id);  // 更新対象のID
 
                 // 実行
@@ -396,7 +396,7 @@ namespace BookLendingSystem {
                 connection.Open();
 
                 // 貸出履歴を取得するクエリ
-                string query = "SELECT Id, ISBN, Barcode, MemberId, Title, Author, LoanDate, ReturnDate FROM Loans";
+                string query = "SELECT Id, ISBN, Barcode, MemberId, Title, Author, LoanDate, ReturnDeadline FROM Loans";
                 SQLiteCommand cmd = new SQLiteCommand(query, connection);
 
                 // 結果をリストに変換
@@ -411,7 +411,7 @@ namespace BookLendingSystem {
                             Title = reader.GetString(4),
                             Author = reader.GetString(5),
                             LoanDate = DateTime.Parse(reader.GetString(6)),
-                            ReturnDate = DateTime.Parse(reader.GetString(7))
+                            ReturnDeadline = DateTime.Parse(reader.GetString(7))
                         });
                     }
                 }
@@ -432,7 +432,7 @@ namespace BookLendingSystem {
                 BookTitleTextBox.Text = selectedLoan.Title;
                 AuthorTextBox.Text = selectedLoan.Author;
                 LoanDatePicker.SelectedDate = selectedLoan.LoanDate;
-                ReturnDatePicker.SelectedDate = selectedLoan.ReturnDate; ;
+                ReturnDeadlinePicker.SelectedDate = selectedLoan.ReturnDeadline; ;
             }
         }
 

@@ -18,7 +18,7 @@ namespace BookLendingSystem {
             // MainWindowを表示するなどの処理
         }
 
-        public static string DbConnectionString => "Data Source=members.db;Version=3;";
+        public static string DbConnectionString => "Data Source=library.db;Version=3;";
 
         public void CreateTable() {
             using (SQLiteConnection conn = new SQLiteConnection(DbConnectionString)) {
@@ -45,21 +45,12 @@ namespace BookLendingSystem {
                     Title TEXT NOT NULL,
                     Author TEXT NOT NULL,
                     LoanDate TEXT NOT NULL,
-                    ReturnDate TEXT NOT NULL
+                    ReturnDeadline TEXT NOT NULL,  -- 修正: 返却期限を ReturnDeadline に
+                    ReturnDate TEXT NULL           -- 新規追加: 実際の返却日 (NULLを許可)
                 );";
 
                 SQLiteCommand createLoansCmd = new SQLiteCommand(createLoansTableQuery, conn);
                 createLoansCmd.ExecuteNonQuery();
-
-                // LoansテーブルにBarcodeカラムがない場合、追加する
-                //string addBarcodeColumnQuery = @"
-                //PRAGMA foreign_keys=off; -- 外部キー制約を一時的に無効化
-                //ALTER TABLE Loans ADD COLUMN Barcode TEXT;
-                //PRAGMA foreign_keys=on; -- 外部キー制約を再度有効化
-                //";
-                //SQLiteCommand addBarcodeColumnCmd = new SQLiteCommand(addBarcodeColumnQuery, conn);
-                //addBarcodeColumnCmd.ExecuteNonQuery();
-
 
             }
         }
