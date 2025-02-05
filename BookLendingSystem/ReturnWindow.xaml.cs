@@ -34,12 +34,36 @@ namespace BookLendingSystem {
             public DateTime? ReturnDate { get; set; }
         }
 
-        private DispatcherTimer _fetchInfoTimer;
+        // Timerを使って一定の遅延後に処理を実行
+        private DispatcherTimer _inputTimer;
 
         public ReturnWindow() {
             InitializeComponent();
             FetchReturnedBooks();  // 返却された書籍情報を読み込む
 
+            // タイマーを初期化
+            _inputTimer = new DispatcherTimer();
+            _inputTimer.Interval = TimeSpan.FromMilliseconds(300);  // 300ms後に実行
+            _inputTimer.Tick += InputTimer_Tick;
+        }
+
+        private void ISBNTextBox_TextChanged(object sender, TextChangedEventArgs e) 
+            {
+            // 入力が変わるたびにタイマーをリセットして再スタート
+            _inputTimer.Stop();
+            _inputTimer.Start();
+        }
+
+        private void BarcodeTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+            // 入力が変わるたびにタイマーをリセットして再スタート
+            _inputTimer.Stop();
+            _inputTimer.Start();
+        }
+
+        private void InputTimer_Tick(object sender, EventArgs e) {
+            // タイマーが実行されたときにISBNとバーコードを基に検索
+            _inputTimer.Stop();
+            FetchLoanInfo();  // ISBNとバーコードを元に貸出情報を取得
         }
 
         private void ReturnRegistrationButton_Click(object sender, RoutedEventArgs e) {
@@ -67,24 +91,23 @@ namespace BookLendingSystem {
             }
         }
 
-
-        private void ISBNTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-            FetchLoanInfo();
+        private string NormalizeISBN(string isbn) {
+            return isbn.Replace("-", "").Trim();  // ハイフン削除 + 余分な空白削除
         }
 
-        private void BarcodeTextBox_TextChanged(object sender, TextChangedEventArgs e) {
-            FetchLoanInfo();
-        }
 
         private void FetchLoanInfo() {
-            string isbn = ISBNTextBox.Text;
-            string barcode = BarcodeTextBox.Text;
+            string isbn = NormalizeISBN(ISBNTextBox.Text).Trim();
+            string barcode = BarcodeTextBox.Text.Trim();
 
             // ISBNとバーコードの両方が入力されている場合のみ検索
             if (!string.IsNullOrEmpty(isbn) && !string.IsNullOrEmpty(barcode)) {
                 using (SQLiteConnection conn = new SQLiteConnection(App.DbConnectionString)) {
                     conn.Open();
-                    string query = "SELECT * FROM Loans WHERE ISBN = @ISBN AND Barcode = @Barcode AND ReturnDate IS NULL";
+                    string query = "SELECT * FROM Loans WHERE CAST(ISBN AS TEXT) = @ISBN AND CAST(Barcode AS TEXT) = @Barcode AND ReturnDate IS NULL";
+                    Console.WriteLine($"Query: {query}");
+                    Console.WriteLine($"ISBN: '{isbn}'");
+                    Console.WriteLine($"Barcode: '{barcode}'");
                     using (SQLiteCommand cmd = new SQLiteCommand(query, conn)) {
                         cmd.Parameters.AddWithValue("@ISBN", isbn);
                         cmd.Parameters.AddWithValue("@Barcode", barcode);
@@ -254,7 +277,7 @@ namespace BookLendingSystem {
             this.Close();
         }
 
-        
+
 
         private void FetchReturnedBooks() {
             using (SQLiteConnection conn = new SQLiteConnection(App.DbConnectionString)) {
