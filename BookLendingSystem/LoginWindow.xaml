@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="ログイン画面" Height="700" ResizeMode="CanResize" Width="1300">
+        Title="ログイン画面" Height="700" ResizeMode="CanMinimize" Width="900">
     <Grid>
         <!-- ウィンドウ全体の背景に画像を設定 -->
         <Grid.Background>
@@ -14,7 +14,7 @@
 
         <!-- Viewboxで全体をラップ -->
         <Viewbox Stretch="Uniform">
-            <Grid Width="1300" Height="700">
+            <Grid Width="900" Height="700">
                 <!-- 図書館名 -->
                 <TextBlock Text="太田専門図書館" FontSize="82" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,4,0,0">
                     <TextBlock.Background>
@@ -36,7 +36,7 @@
                 </TextBlock>
 
                 <!-- 入力エリア全体 -->
-                <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Width="1084" Margin="0,233,0,0" Height="390">
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Width="844" Margin="0,252,0,0" Height="371">
                     <!-- 行を定義 -->
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -73,7 +73,7 @@
                             <SolidColorBrush Color="#FFD700"/>
                         </TextBlock.Foreground>
                     </TextBlock>
-                    <TextBox x:Name="MemberIDTextBox" Width="500" Height="50" Padding="10" Grid.Row="1" Grid.Column="1" Background="#88000000" FontSize="25" Foreground="#FFFFF0" Margin="20"/>
+                    <TextBox x:Name="MemberIDTextBox" Width="500" Height="50" Padding="10" Grid.Row="1" Grid.Column="1" Background="#88000000" FontSize="25" Foreground="#FFFFF0" Margin="20" IsReadOnly="True"/>
 
                     <!-- パスワード入力 -->
                     <TextBlock Text="パスワード" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">

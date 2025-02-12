@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="貸出・返却選択画面" Height="600" Width="1000" ResizeMode="CanResize" Closed="Window_Closed">
+        Title="貸出・返却選択画面" Height="600" Width="900" ResizeMode="CanMinimize" Closed="Window_Closed">
     <Grid>
         <!-- 背景画像を設定 -->
         <Grid.Background>
@@ -14,7 +14,7 @@
         
         <!-- Viewboxで全体をスケーリング -->
         <Viewbox Stretch="Uniform">
-            <Grid Width="1000" Height="600">
+            <Grid Width="900" Height="600">
                 <!-- 行と列の定義 -->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

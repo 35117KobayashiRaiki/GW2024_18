@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="会員登録画面" Height="700" Width="1000" ResizeMode="CanResizeWithGrip" Closed="Window_Closed">
+        Title="会員登録画面" Height="700" Width="900"  ResizeMode="CanMinimize" Closed="Window_Closed">
     <Grid>
         <!-- ウィンドウ全体の背景に画像を設定 -->
         <Grid.Background>
@@ -14,7 +14,7 @@
 
         <!-- レイアウト全体をViewboxでラップ -->
         <Viewbox Stretch="Uniform">
-            <Grid Width="1000" Height="700">
+            <Grid Width="900" Height="700">
                 <!-- グリッドの行定義 -->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -78,7 +78,7 @@
                     </TextBlock>
                     <TextBox x:Name="MemberIDTextBox" Width="450" Height="60" FontSize="30" Foreground="#FFFFF0"
                              Background="#66000000" BorderBrush="#FF6A6A6A" BorderThickness="1" Padding="10"
-                             Grid.Row="1" Grid.Column="1" Margin="20"/>
+                             Grid.Row="1" Grid.Column="1" Margin="20" IsReadOnly="True"/>
 
                     <!-- ボタンエリア -->
                     <Grid Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0,20,0,0">

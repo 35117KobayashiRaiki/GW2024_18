@@ -129,7 +129,7 @@ namespace BookLendingSystem {
                                 // 返却日を自動的に設定 (スキャンした日)
                                 ReturnDatePicker.SelectedDate = DateTime.Now;
                             } else {
-                                MessageBox.Show("該当する貸出情報が見つかりませんでした。");
+                                //MessageBox.Show("該当する貸出情報が見つかりませんでした。");
                             }
                         }
                     }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="貸出画面" Height="650" Width="700"  ResizeMode="CanResize" WindowStartupLocation="CenterScreen">
+        Title="貸出画面" Height="700" Width="700"  ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
 
         <!-- DatePickerのTextBox部分のスタイル -->
@@ -54,7 +54,7 @@
                 <!-- ボタン群 -->
                 <RowDefinition Height="auto"/>
                 <!-- 貸出履歴リスト -->
-                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <!-- 検索機能 -->
@@ -175,15 +175,32 @@
 
             <!-- 貸出履歴リスト -->
             <ListView x:Name="LoanHistoryListView" HorizontalAlignment="Center" Grid.Row="3" Margin="10"
-                          Foreground="#FFFFE0" Background="#66000000"
-                          SelectionChanged="LoanHistoryListView_SelectionChanged" Grid.ColumnSpan="2">
+                                Foreground="#FFFFE0" Background="#66000000" 
+                                SelectionChanged="LoanHistoryListView_SelectionChanged" Grid.ColumnSpan="2">
+                <ListView.Resources>
+                    <!-- ヘッダーのスタイル -->
+                    <Style TargetType="GridViewColumnHeader">
+                        <Setter Property="Background" Value="#88000000"/>
+                        <!-- ヘッダーの背景色 -->
+                        <Setter Property="Foreground" Value="#FFD700"/>
+                        <!-- ヘッダーの文字色 -->
+                        <Setter Property="FontSize" Value="16"/>
+                        <!-- フォントサイズ -->
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <!-- 太字 -->
+                        <Setter Property="Padding" Value="5"/>
+                        <!-- パディング -->
+                    </Style>
+                </ListView.Resources>
+
+                <!-- リストビューのビュー -->
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="会員ID" DisplayMemberBinding="{Binding MemberID}" Width="50"/>
+                        <GridViewColumn Header="会員ID" DisplayMemberBinding="{Binding MemberID}" Width="60"/>
                         <GridViewColumn Header="図書タイトル" DisplayMemberBinding="{Binding Title}" Width="230"/>
                         <GridViewColumn Header="著者名" DisplayMemberBinding="{Binding Author}" Width="100"/>
-                        <GridViewColumn Header="貸出日" DisplayMemberBinding="{Binding LoanDate, StringFormat='yyyy/MM/dd HH:mm:ss'}" Width="140"/>
-                        <GridViewColumn Header="返却期限" DisplayMemberBinding="{Binding ReturnDeadline, StringFormat='yyyy/MM/dd HH:mm:ss'}" Width="130"/>
+                        <GridViewColumn Header="貸出日" DisplayMemberBinding="{Binding LoanDate, StringFormat='yyyy/MM/dd HH:mm:ss'}" Width="120"/>
+                        <GridViewColumn Header="返却期限" DisplayMemberBinding="{Binding ReturnDeadline, StringFormat='yyyy/MM/dd HH:mm:ss'}" Width="120"/>
                     </GridView>
                 </ListView.View>
             </ListView>

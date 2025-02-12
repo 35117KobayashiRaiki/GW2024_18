@@ -39,6 +39,7 @@ namespace BookLendingSystem {
 
             // 重複するバーコードが既に登録されていないか確認
             if (IsBarcodeExist(barcode)) {
+                ClearInputFields();
                 MessageBox.Show("このバーコード番号は既に登録されています。");
                 return;
             }
@@ -55,12 +56,17 @@ namespace BookLendingSystem {
             MessageBox.Show("会員登録が完了しました。");
 
             // 入力フィールドをクリア
+            ClearInputFields();
+        }
+
+        // 入力フィールドをクリア
+        private void ClearInputFields() {
             BarcodeTextBox.Clear();
             MemberIDTextBox.Clear();
         }
 
-        // 新しい会員IDを生成するメソッド
-        private string GenerateMemberId() {
+            // 新しい会員IDを生成するメソッド
+            private string GenerateMemberId() {
             using (SQLiteConnection connection = new SQLiteConnection(App.DbConnectionString)) {
                 connection.Open();
 
@@ -137,6 +143,7 @@ namespace BookLendingSystem {
             }
 
             if (!IsBarcodeExist(barcode)) {
+                ClearInputFields();
                 MessageBox.Show("このバーコード番号は登録されていません。");
                 return;
             }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="メイン画面" Height="500" Width="1000">
+        Title="メイン画面" Height="500" Width="900"  ResizeMode="CanMinimize">
     <Grid>
         <!-- 背景画像を設定 -->
         <Grid.Background>
@@ -13,7 +13,7 @@
         </Grid.Background>
         <!-- Viewboxで全体をラップ -->
         <Viewbox Stretch="Uniform">
-            <Grid Width="1000" Height="500">
+            <Grid Width="900" Height="500">
                 <!-- 行と列の定義 -->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
