@@ -9,73 +9,98 @@
     <Grid>
         <!-- ウィンドウ全体の背景に画像を設定 -->
         <Grid.Background>
-            <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill"/>
+            <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill" Opacity="0.9"/>
         </Grid.Background>
 
         <!-- Viewboxで全体をラップ -->
         <Viewbox Stretch="Uniform">
             <Grid Width="1300" Height="700">
                 <!-- 図書館名 -->
-                <TextBlock Text="○○○○図書館" FontSize="82" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,4,0,0">
+                <TextBlock Text="太田専門図書館" FontSize="82" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,4,0,0">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="#66000000"/>
+                        <SolidColorBrush Color="#88000000"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="White"/>
+                        <SolidColorBrush Color="#FFFFF0"/>
                     </TextBlock.Foreground>
                 </TextBlock>
 
                 <!-- 図書館名のアルファベット -->
-                <TextBlock Text="○○○ academy library" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,126,0,0">
+                <TextBlock Text="ota academy library" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,126,0,0">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="#66000000"/>
+                        <SolidColorBrush Color="#88000000"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="White"/>
+                        <SolidColorBrush Color="#FFFFF0"/>
                     </TextBlock.Foreground>
                 </TextBlock>
 
-                <!-- 中央の入力情報 -->
-                <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left" Height="451" Width="1083" Margin="105,195,0,0">
-                    <StackPanel.Resources>
-                        <Style TargetType="TextBox">
-                            <Setter Property="Height" Value="35"/>
-                            <Setter Property="Margin" Value="0,10"/>
-                            <Setter Property="FontSize" Value="25"/>
-                            <Setter Property="Padding" Value="10"/>
-                            <Setter Property="BorderBrush" Value="#FF6A6A6A"/>
-                            <Setter Property="BorderThickness" Value="1"/>
-                            <Setter Property="Background" Value="#66000000"/>
-                            <Setter Property="Foreground" Value="White"/>
-                        </Style>
-                        <Style TargetType="PasswordBox">
-                            <Setter Property="Height" Value="35"/>
-                            <Setter Property="Margin" Value="0,10"/>
-                            <Setter Property="FontSize" Value="20"/>
-                            <Setter Property="Padding" Value="10"/>
-                            <Setter Property="BorderBrush" Value="#FF6A6A6A"/>
-                            <Setter Property="BorderThickness" Value="1"/>
-                            <Setter Property="Background" Value="#66000000"/>
-                            <Setter Property="Foreground" Value="White"/>
-                        </Style>
-                    </StackPanel.Resources>
+                <!-- 入力エリア全体 -->
+                <Grid VerticalAlignment="Top" HorizontalAlignment="Center" Width="1084" Margin="0,233,0,0" Height="390">
+                    <!-- 行を定義 -->
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- 列を定義 -->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <!-- ラベル用の固定幅 -->
+                        <ColumnDefinition Width="*"/>
+                        <!-- 入力フィールド用の可変幅 -->
+                    </Grid.ColumnDefinitions>
 
                     <!-- バーコード入力 -->
-                    <TextBlock Text="バーコード" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
-                    <TextBox x:Name="BarcodeTextBox" Width="500" Height="50"/>
+                    <TextBlock Text="バーコード" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
+                        <TextBlock.Background>
+                            <SolidColorBrush Color="#88000000"/>
+                        </TextBlock.Background>
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="#FFD700"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBox x:Name="BarcodeTextBox" Width="500" Height="50" Padding="10" Grid.Row="0" Grid.Column="1" Background="#88000000" FontSize="25" Foreground="#FFFFF0" Margin="20"/>
 
                     <!-- 会員ID入力 -->
-                    <TextBlock Text="会員ID" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
-                    <TextBox x:Name="MemberIDTextBox" Width="500" Height="50"/>
+                    <TextBlock Text="会員ID" FontSize="40" FontWeight="Bold"  VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">
+                        <TextBlock.Background>
+                            <SolidColorBrush Color="#88000000"/>
+                        </TextBlock.Background>
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="#FFD700"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <TextBox x:Name="MemberIDTextBox" Width="500" Height="50" Padding="10" Grid.Row="1" Grid.Column="1" Background="#88000000" FontSize="25" Foreground="#FFFFF0" Margin="20"/>
 
                     <!-- パスワード入力 -->
-                    <TextBlock Text="パスワード" VerticalAlignment="Center" FontSize="40" Foreground="White"/>
-                    <PasswordBox x:Name="PasswordBox" Width="500" Height="50"/>
-                    <StackPanel Orientation="Horizontal" Width="421" Height="87">
-                        <Button Content="ログイン" Width="160" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="RegistrationButton_Click"/>
-                        <Button Content="キャンセル" Width="160" Height="60" Margin="10" Background="Transparent" BorderBrush="Transparent" FontSize="40" Foreground="White" Click="CancelButton_Click"/>
-                    </StackPanel>
-                </StackPanel>
+                    <TextBlock Text="パスワード" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">
+                        <TextBlock.Background>
+                            <SolidColorBrush Color="#88000000"/>
+                        </TextBlock.Background>
+                        <TextBlock.Foreground>
+                            <SolidColorBrush Color="#FFD700"/>
+                        </TextBlock.Foreground>
+                    </TextBlock>
+                    <PasswordBox x:Name="PasswordBox" Width="500" Height="50" Padding="10" Grid.Row="2" Grid.Column="1" Background="#88000000" FontSize="25" Foreground="#FFFFF0" Margin="20"/>
+
+                    <!-- ボタンエリア -->
+                    <Grid Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Button Content="ログイン" Width="160" Height="60" Margin="10" Background="Transparent" 
+                                BorderBrush="Transparent" FontSize="40" FontWeight="Bold" Foreground="#FFA500" Click="RegistrationButton_Click"
+                                Grid.Column="0"/>
+                        <Button Content="キャンセル" Width="160" Height="60" Margin="10" Background="Transparent" 
+                                BorderBrush="Transparent" FontSize="40" FontWeight="Bold" Foreground="#FFA500" Click="CancelButton_Click"
+                                Grid.Column="1"/>
+                    </Grid>
+                </Grid>
             </Grid>
         </Viewbox>
     </Grid>
