@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="返却画面" Height="700" Width="700" ResizeMode="CanMinimize">
+        Title="返却画面" Height="750" Width="800" ResizeMode="CanMinimize">
     <Window.Resources>
         <!-- DatePickerのTextBox部分のスタイル -->
         <Style TargetType="DatePickerTextBox">
@@ -38,7 +38,7 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill" Opacity="0.9"/>
+            <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill" Opacity="0.6"/>
         </Grid.Background>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -57,17 +57,19 @@
             </Grid.RowDefinitions>
 
             <!-- 検索機能 -->
-            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" Grid.ColumnSpan="2" Width="680">
-                <TextBox x:Name="SearchTextBox" Width="350" Margin="5" FontSize="20" Padding="5" Foreground="#FFFFE0" Background="#88000000"
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10" Width="780">
+                <TextBox x:Name="SearchTextBox" Width="370" Margin="5" FontSize="20" Padding="5" Foreground="#FFFFE0" Background="#88000000"
                          />
                 <Button Content="検索" Width="110" Height="40" Margin="5" FontSize="25" Background="Transparent"
-                            BorderBrush="Transparent" FontWeight="Bold" Foreground="#FFA500" Click="SearchButton_Click"/>
+                            BorderBrush="Transparent" FontWeight="Bold" Foreground="Aqua" Click="SearchButton_Click"/>
                 <Button Content="検索リセット" Width="150" Height="40" FontSize="25" Margin="5" Background="Transparent"
-                            BorderBrush="Transparent" FontWeight="Bold" Foreground="#FFA500" Click="SearchResetButton_Click"/>
+                            BorderBrush="Transparent" FontWeight="Bold" Foreground="Aquamarine" Click="SearchResetButton_Click"/>
+                <Button Content="削除" Width="90" Height="40" Margin="10" Background="Transparent"
+                            BorderBrush="Transparent" FontWeight="Bold" FontSize="23" Foreground="MediumBlue" Click="DeleteButton_Click"/>
             </StackPanel>
 
             <!-- 図書情報入力フォーム -->
-            <Grid Grid.Row="1" Margin="0,5,0,5" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="680">
+            <Grid Grid.Row="1" Margin="0,5,0,5" Grid.ColumnSpan="2" HorizontalAlignment="Center" Width="780">
                 <!-- ISBN番号 -->
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -120,7 +122,7 @@
                     </TextBlock.Foreground>
                 </TextBlock>
                 <TextBox x:Name="MemberIDTextBox" Grid.Row="2" Grid.Column="1" IsReadOnly="True" Width="430" Height="35" FontSize="20" Padding="5" Margin="5" Background="#88000000" Foreground="#FFFFE0" BorderBrush="#FF6A6A6A" BorderThickness="1"/>
-                    
+
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="図書タイトル" VerticalAlignment="Center" FontSize="25" FontWeight="Bold">
                     <TextBlock.Background>
                         <SolidColorBrush Color="#88000000"/>
@@ -173,27 +175,25 @@
             </Grid>
 
             <!-- ボタン群 -->
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,6,0,10" Grid.ColumnSpan="2" Width="587">
-                <Button Content="返却登録" Width="130" Height="40" Margin="10" Background="Transparent"
-                            BorderBrush="Transparent" FontWeight="Bold" FontSize="25" Foreground="#FFA500" Click="ReturnRegistrationButton_Click"/>
-                <Button Content="更新" Width="100" Height="40" Margin="10" Background="Transparent"
-                            BorderBrush="Transparent" FontWeight="Bold" FontSize="25" Foreground="#FFA500" Click="UpdateButton_Click"/>
-                <Button Content="削除" Width="100" Height="40" Margin="10" Background="Transparent"
-                            BorderBrush="Transparent" FontWeight="Bold" FontSize="25" Foreground="#FFA500" Click="DeleteButton_Click"/>
-                <Button Content="キャンセル" Width="150" Height="40" Margin="10" Background="Transparent"
-                            BorderBrush="Transparent" FontWeight="Bold" FontSize="25" Foreground="#FFA500" Click="CancelButton_Click"/>
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="124,6,0,10" Grid.ColumnSpan="2" Width="588">
+                <Button Content="返却登録" Width="160" Height="48" Margin="10" Background="Transparent"
+                            BorderBrush="Transparent" FontWeight="Bold" FontSize="35" Foreground="Red" Click="ReturnRegistrationButton_Click"/>
+                <Button Content="更新" Width="160" Height="48" Margin="10" Background="Transparent"
+                            BorderBrush="Transparent" FontWeight="Bold" FontSize="35" Foreground="Purple" Click="UpdateButton_Click"/>
+                <Button Content="キャンセル" Width="170" Height="48" Margin="10" Background="Transparent"
+                            BorderBrush="Transparent" FontWeight="Bold" FontSize="35" Foreground="#FFA500" Click="CancelButton_Click"/>
             </StackPanel>
 
             <!-- 貸出履歴リスト -->
-            <ListView x:Name="LoanHistoryListView" HorizontalAlignment="Center" Grid.Row="3" Margin="10"
-                          Foreground="#FFFFE0" Background="#88000000" BorderBrush="#AAAAAA" BorderThickness="1"
-                          SelectionChanged="LoanHistoryListView_SelectionChanged" Grid.ColumnSpan="2">
+            <ListView x:Name="LoanHistoryListView" HorizontalAlignment="Center" Grid.Row="3" Margin="0,10,0,10"
+                          Foreground="#FFD700" Background="#FF222222" BorderBrush="#AAAAAA" BorderThickness="1"
+                          SelectionChanged="LoanHistoryListView_SelectionChanged" Grid.ColumnSpan="2" Width="780">
                 <ListView.Resources>
                     <!-- ヘッダーのスタイル -->
                     <Style TargetType="GridViewColumnHeader">
                         <Setter Property="Background" Value="#88000000"/>
                         <!-- ヘッダーの背景色 -->
-                        <Setter Property="Foreground" Value="#FFD700"/>
+                        <Setter Property="Foreground" Value="#FFFFE0"/>
                         <!-- ヘッダーの文字色 -->
                         <Setter Property="FontSize" Value="16"/>
                         <!-- フォントサイズ -->
@@ -207,7 +207,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="会員ID" DisplayMemberBinding="{Binding MemberId}" Width="60"/>
-                        <GridViewColumn Header="図書タイトル" DisplayMemberBinding="{Binding Title}" Width="170"/>
+                        <GridViewColumn Header="図書タイトル" DisplayMemberBinding="{Binding Title}" Width="270"/>
                         <GridViewColumn Header="著者名" DisplayMemberBinding="{Binding Author}" Width="90"/>
                         <GridViewColumn Header="貸出日" DisplayMemberBinding="{Binding LoanDate, StringFormat='yyyy/MM/dd HH:mm:ss'}" Width="120"/>
                         <GridViewColumn Header="返却期限" DisplayMemberBinding="{Binding ReturnDeadline, StringFormat='yyyy/MM/dd HH:mm:ss'}" Width="120"/>

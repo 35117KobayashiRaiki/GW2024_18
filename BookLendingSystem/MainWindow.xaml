@@ -31,13 +31,13 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- 図書館名 -->
-                <TextBlock Text="太田専門図書館" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0" Grid.Row="0" Grid.ColumnSpan="2">
+                <TextBlock Text="太田アカデミー図書館" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,20,0,0" Grid.Row="0" Grid.ColumnSpan="2">
                     <TextBlock.Background>
                         <SolidColorBrush Color="#66000000"/>
                         <!-- 半透明の背景を追加 -->
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFFFE0"/>
+                        <SolidColorBrush Color="Yellow"/>
                         <!-- テキスト色を白に変更 -->
                     </TextBlock.Foreground>
                 </TextBlock>
@@ -49,19 +49,19 @@
                         <!-- 半透明の背景を追加 -->
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFFFE0"/>
+                        <SolidColorBrush Color="Yellow"/>
                         <!-- テキスト色を白に変更 -->
                     </TextBlock.Foreground>
                 </TextBlock>
 
                 <!-- 貸出ボタン -->
                 <Button Content="会員登録" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0" Grid.Row="2" Grid.Column="0"
-                        Background="Transparent" BorderBrush="Transparent" Foreground="#FFA500" Height="70" Click="MemberRegistrationButton_Click">
+                        Background="Transparent" BorderBrush="Transparent" Foreground="LightCoral" Height="70" Click="MemberRegistrationButton_Click">
                 </Button>
 
                 <!-- 返却ボタン -->
                 <Button Content="ログイン" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0" Grid.Row="2" Grid.Column="1"
-                        Background="Transparent" BorderBrush="Transparent" Foreground="#FFA500" Height="70" Click="LoginButton_Click">
+                        Background="Transparent" BorderBrush="Transparent" Foreground="PaleGreen" Height="70" Click="LoginButton_Click">
                 </Button>
             </Grid>
         </Viewbox>

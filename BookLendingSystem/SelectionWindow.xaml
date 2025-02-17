@@ -38,7 +38,7 @@
                         <!-- 半透明の背景を追加 -->
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFFFE0"/>
+                        <SolidColorBrush Color="Yellow"/>
                         <!-- テキスト色を白に変更 -->
                     </TextBlock.Foreground>
                 </TextBlock>
@@ -50,19 +50,19 @@
                         <!-- 半透明の背景を追加 -->
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFFFE0"/>
+                        <SolidColorBrush Color="Yellow"/>
                         <!-- テキスト色を白に変更 -->
                     </TextBlock.Foreground>
                 </TextBlock>
 
                 <!-- 貸出ボタン -->
                 <Button Content="貸出" VerticalAlignment="Top" FontSize="50" Margin="20,130,20,0" Grid.Row="2" Grid.Column="0"
-                        Background="Transparent" BorderBrush="Transparent" Foreground="#FFA500" Height="70" Click="LendingButton_Click">
+                        Background="Transparent" BorderBrush="Transparent" Foreground="Pink" Height="70" Click="LendingButton_Click">
                 </Button>
 
                 <!-- 返却ボタン -->
                 <Button Content="返却" VerticalAlignment="Top" FontSize="50" Margin="20,130,20,0" Grid.Row="2" Grid.Column="1"
-                        Background="Transparent" BorderBrush="Transparent" Foreground="#FFA500" Height="70" Click="ReturnButton_Click">
+                        Background="Transparent" BorderBrush="Transparent" Foreground="Lime" Height="70" Click="ReturnButton_Click">
                 </Button>
 
                 <!-- 戻るボタン -->
