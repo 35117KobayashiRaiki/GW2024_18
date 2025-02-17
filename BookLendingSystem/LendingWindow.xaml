@@ -88,7 +88,7 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="ISBN番号" VerticalAlignment="Center" FontSize="25" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="#88000000"/>
+                        <SolidColorBrush Color="Black"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="#FFD700"/>
@@ -101,7 +101,7 @@
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="バーコード番号" VerticalAlignment="Center" FontSize="25" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="#88000000"/>
+                        <SolidColorBrush Color="Black"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="#FFD700"/>
@@ -114,7 +114,7 @@
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="会員ID" VerticalAlignment="Center" FontSize="25" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="#88000000"/>
+                        <SolidColorBrush Color="Black"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="#FFD700"/>
@@ -124,7 +124,7 @@
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="図書タイトル" VerticalAlignment="Center" FontSize="25" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="#88000000"/>
+                        <SolidColorBrush Color="Black"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="#FFD700"/>
@@ -134,7 +134,7 @@
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="著者名" VerticalAlignment="Center" FontSize="25" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="#88000000"/>
+                        <SolidColorBrush Color="Black"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="#FFD700"/>
@@ -144,7 +144,7 @@
 
                 <TextBlock Grid.Row="5" Grid.Column="0" Text="貸出日" VerticalAlignment="Center" FontSize="25" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="#88000000"/>
+                        <SolidColorBrush Color="Black"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="#FFD700"/>
@@ -154,7 +154,7 @@
 
                 <TextBlock Grid.Row="6" Grid.Column="0" Text="返却期限" VerticalAlignment="Center" FontSize="25" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="#88000000"/>
+                        <SolidColorBrush Color="Black"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="#FFD700"/>
