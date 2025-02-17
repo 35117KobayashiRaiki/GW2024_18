@@ -38,7 +38,7 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill" Opacity="0.6"/>
+            <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill" Opacity="0.7"/>
         </Grid.Background>
         <Grid>
             <Grid.ColumnDefinitions>
