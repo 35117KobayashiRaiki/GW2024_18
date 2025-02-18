@@ -25,6 +25,11 @@ namespace BookLendingSystem {
 
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            // Set initial focus to ISBNTextBox
+            BarcodeTextBox.Focus();
+        }
+
         // 会員登録ボタンがクリックされたときの処理
         private void RegistrationButton_Click(object sender, RoutedEventArgs e) {
 

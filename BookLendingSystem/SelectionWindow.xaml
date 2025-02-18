@@ -58,16 +58,61 @@
                 <!-- 貸出ボタン -->
                 <Button Content="貸出" VerticalAlignment="Top" FontSize="50" Margin="20,130,20,0" Grid.Row="2" Grid.Column="0"
                         Background="Transparent" BorderBrush="Transparent" Foreground="Pink" Height="70" Click="LendingButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="PART_ButtonBackground" Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#80FFFFE0"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#80FFFFE0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
                 </Button>
 
                 <!-- 返却ボタン -->
                 <Button Content="返却" VerticalAlignment="Top" FontSize="50" Margin="20,130,20,0" Grid.Row="2" Grid.Column="1"
                         Background="Transparent" BorderBrush="Transparent" Foreground="Lime" Height="70" Click="ReturnButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="PART_ButtonBackground" Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#80ADD8E6"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#80ADD8E6"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
                 </Button>
 
                 <!-- 戻るボタン -->
                 <Button Content="戻る" VerticalAlignment="Top" FontSize="50" Margin="270,256,270,0" Grid.Row="2" Grid.Column="0"
                         Background="Transparent" BorderBrush="Transparent" Foreground="#FFA500" Height="70" Click="Back_Click" Grid.ColumnSpan="2">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="PART_ButtonBackground" Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#8000008B"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#8000008B"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
                 </Button>
             </Grid>
         </Viewbox>

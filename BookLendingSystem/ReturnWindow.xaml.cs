@@ -48,6 +48,11 @@ namespace BookLendingSystem {
             _inputTimer.Tick += InputTimer_Tick;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            // Set initial focus to ISBNTextBox
+            ISBNTextBox.Focus();
+        }
+
         // ISBNの入力が変更されたときの処理
         private void ISBNTextBox_TextChanged(object sender, TextChangedEventArgs e) {
             _inputTimer.Stop();

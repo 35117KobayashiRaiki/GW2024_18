@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="メイン画面" Height="500" Width="900"  ResizeMode="CanMinimize">
+        Title="会員登録・ログイン選択画面" Height="500" Width="900"  ResizeMode="CanMinimize">
+    
     <Grid>
         <!-- 背景画像を設定 -->
         <Grid.Background>
@@ -54,14 +55,67 @@
                     </TextBlock.Foreground>
                 </TextBlock>
 
-                <!-- 貸出ボタン -->
-                <Button Content="会員登録" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0" Grid.Row="2" Grid.Column="0"
-                        Background="Transparent" BorderBrush="Transparent" Foreground="LightCoral" Height="70" Click="MemberRegistrationButton_Click">
+                <Button Content="会員登録" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0"
+                    Grid.Row="2" Grid.Column="0" BorderBrush="Transparent"
+                    Foreground="LightCoral" Height="70" Click="MemberRegistrationButton_Click">
+                    <Button.Template>
+        <ControlTemplate TargetType="Button">
+            <Grid x:Name="PART_ButtonBackground" Background="Transparent"> 
+                <!-- ボタンの中の背景色 -->
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="LightGray"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="DarkGray"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Button.Template>
+</Button>
+
+                <!-- 会員登録ボタン -->
+                <Button Content="会員登録" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0"
+                    Grid.Row="2" Grid.Column="0" BorderBrush="Transparent"
+                    Foreground="#FFFFE0" Height="70" Click="MemberRegistrationButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="PART_ButtonBackground" Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#805A3E2B"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#805A3E2B"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
                 </Button>
 
-                <!-- 返却ボタン -->
-                <Button Content="ログイン" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0" Grid.Row="2" Grid.Column="1"
-                        Background="Transparent" BorderBrush="Transparent" Foreground="PaleGreen" Height="70" Click="LoginButton_Click">
+                <!-- ログインボタン -->
+                <Button Content="ログイン" VerticalAlignment="Top" FontSize="40" Margin="20,130,20,0"
+                Grid.Row="2" Grid.Column="1" BorderBrush="Transparent"
+                Foreground="PaleGreen" Height="70" Click="LoginButton_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="PART_ButtonBackground" Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#88000000"/>
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#88000000"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
                 </Button>
             </Grid>
         </Viewbox>

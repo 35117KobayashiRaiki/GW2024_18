@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookLendingSystem"
         mc:Ignorable="d"
-        Title="ログイン画面" Height="700" ResizeMode="CanMinimize" Width="900">
+        Title="ログイン画面" Height="700" ResizeMode="CanMinimize" Width="900" Loaded="Window_Loaded">
     <Grid>
+
         <!-- ウィンドウ全体の背景に画像を設定 -->
         <Grid.Background>
             <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill" Opacity="0.7"/>
@@ -47,14 +48,14 @@
 
                     <!-- 列を定義 -->
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="237"/>
                         <!-- ラベル用の固定幅 -->
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition/>
                         <!-- 入力フィールド用の可変幅 -->
                     </Grid.ColumnDefinitions>
 
                     <!-- バーコード入力 -->
-                    <TextBlock Text="バーコード" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="会員バーコード" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" Grid.Column="0" Height="54">
                         <TextBlock.Background>
                             <SolidColorBrush Color="#88000000"/>
                         </TextBlock.Background>
@@ -62,10 +63,13 @@
                             <SolidColorBrush Color="#FFD700"/>
                         </TextBlock.Foreground>
                     </TextBlock>
-                    <TextBox x:Name="BarcodeTextBox" Width="500" Height="50" Padding="10" Grid.Row="0" Grid.Column="1" Background="#88000000" FontSize="25" Foreground="#FFFFF0" Margin="20"/>
+                    <TextBox x:Name="BarcodeTextBox"
+                             Padding="10" Grid.Row="0" Grid.Column="1"
+                             Background="#80FFFF00" FontSize="25"
+                             Foreground="#000000" Margin="71,20,71,20" TabIndex="1"/>
 
                     <!-- 会員ID入力 -->
-                    <TextBlock Text="会員ID" FontSize="40" FontWeight="Bold"  VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">
+                    <TextBlock Text="会員ID" FontSize="40" FontWeight="Bold"  VerticalAlignment="Center" Grid.Row="1" Grid.Column="0" Height="54">
                         <TextBlock.Background>
                             <SolidColorBrush Color="#88000000"/>
                         </TextBlock.Background>
@@ -73,10 +77,10 @@
                             <SolidColorBrush Color="#FFD700"/>
                         </TextBlock.Foreground>
                     </TextBlock>
-                    <TextBox x:Name="MemberIDTextBox" Width="500" Height="50" Padding="10" Grid.Row="1" Grid.Column="1" Background="#88000000" FontSize="25" Foreground="#FFFFF0" Margin="20" IsReadOnly="True"/>
+                    <TextBox x:Name="MemberIDTextBox" Padding="10" Grid.Row="1" Grid.Column="1" Background="#88000000" FontSize="25" Foreground="#FFFFF0" Margin="71,20,71,20" IsReadOnly="True"/>
 
                     <!-- パスワード入力 -->
-                    <TextBlock Text="パスワード" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">
+                    <TextBlock Text="パスワード" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Height="54">
                         <TextBlock.Background>
                             <SolidColorBrush Color="#88000000"/>
                         </TextBlock.Background>
@@ -84,21 +88,56 @@
                             <SolidColorBrush Color="#FFD700"/>
                         </TextBlock.Foreground>
                     </TextBlock>
-                    <PasswordBox x:Name="PasswordBox" Width="500" Height="50" Padding="10" Grid.Row="2" Grid.Column="1" Background="#88000000" FontSize="25" Foreground="#FFFFF0" Margin="20"/>
+                    <PasswordBox x:Name="PasswordBox"
+                                 Padding="10" Grid.Row="2" Grid.Column="1"
+                                 Background="#80FFFF00" FontSize="25"
+                                 Foreground="#000000" Margin="71,20,71,20" TabIndex="2"/>
 
                     <!-- ボタンエリア -->
-                    <Grid Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10,20,0,0">
+                    <Grid Grid.Row="3" HorizontalAlignment="Left" Margin="10,0,0,20" Grid.Column="1" Width="455">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <Button Content="ログイン" Width="160" Height="60" Margin="10" Background="Transparent" 
-                                BorderBrush="Transparent" FontSize="40" FontWeight="Bold" Foreground="PaleGreen" Click="RegistrationButton_Click"
-                                Grid.Column="0"/>
-                        <Button Content="キャンセル" Width="160" Height="60" Margin="10" Background="Transparent" 
-                                BorderBrush="Transparent" FontSize="40" FontWeight="Bold" Foreground="#FFA500" Click="CancelButton_Click"
-                                Grid.Column="1"/>
+                        <Button Content="ログイン" Width="170" Height="60" Margin="10" Background="Transparent" 
+                                BorderBrush="Transparent" FontSize="45" FontWeight="Bold" Foreground="PaleGreen" Click="RegistrationButton_Click"
+                                Grid.Column="0">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid x:Name="PART_ButtonBackground" Background="Transparent">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#80ADD8E6"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#80ADD8E6"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button Content="キャンセル" Height="60" Margin="10,10,-144,10" Background="Transparent" 
+                                BorderBrush="Transparent" FontSize="45" FontWeight="Bold" Foreground="#FFA500" Click="CancelButton_Click"
+                                Grid.Column="1">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Grid x:Name="PART_ButtonBackground" Background="Transparent">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#8000008B"/>
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#8000008B"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
                     </Grid>
                 </Grid>
             </Grid>

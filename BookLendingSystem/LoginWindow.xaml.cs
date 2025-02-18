@@ -28,6 +28,10 @@ namespace BookLendingSystem {
             BarcodeTextBox.TextChanged += BarcodeTextBox_TextChanged;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            BarcodeTextBox.Focus();
+        }
+
         // キャンセルボタンがクリックされた時の処理
         private void CancelButton_Click(object sender, RoutedEventArgs e) {
             // MainWindowが開かれている場合に再表示する

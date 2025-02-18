@@ -40,6 +40,10 @@ namespace BookLendingSystem {
             LoadLoanHistory(); // 貸出履歴を読み込む
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e) {
+            ISBNTextBox.Focus();
+        }
+
         // ISBNから書籍情報（タイトルと著者）を非同期で取得
         private async Task<(string Title, string Author)> GetBookInfoFromISBNAsync(string isbn) {
             string apiUrl = $"https://iss.ndl.go.jp/api/opensearch?isbn={isbn}";
@@ -83,7 +87,7 @@ namespace BookLendingSystem {
 
             // 返却期限を設定（貸出日の1週間後）
             ReturnDeadlinePicker.SelectedDate = currentDateTime.AddDays(7);
-            
+
         }
 
         // ISBNのテキストが変更されると呼ばれるイベントハンドラ
@@ -447,6 +451,6 @@ namespace BookLendingSystem {
             this.Close();
         }
 
-        
+
     }
 }
