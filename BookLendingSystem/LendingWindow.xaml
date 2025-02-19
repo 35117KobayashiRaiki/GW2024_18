@@ -39,7 +39,7 @@
     </Window.Resources>
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="Images/LibraryBackground.jpg" Stretch="UniformToFill" Opacity="0.7"/>
+            <ImageBrush ImageSource="Images/BookLibrary.jpg" Stretch="UniformToFill" Opacity="0.7"/>
         </Grid.Background>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -136,10 +136,10 @@
 
                 <TextBlock Grid.Row="0" Grid.Column="0" Text="ISBN番号" VerticalAlignment="Center" FontSize="30" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="Black"/>
+                        <SolidColorBrush Color="#809ACD32"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFD700"/>
+                        <SolidColorBrush Color="#FF8C00"/>
                     </TextBlock.Foreground>
                 </TextBlock>
 
@@ -150,10 +150,10 @@
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="バーコード番号" VerticalAlignment="Center" FontSize="30" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="Black"/>
+                        <SolidColorBrush Color="#809ACD32"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFD700"/>
+                        <SolidColorBrush Color="#FF8C00"/>
                     </TextBlock.Foreground>
                 </TextBlock>
                 <TextBox x:Name="BarcodeTextBox" Grid.Row="1" Grid.Column="1" Height="45" Padding="5"
@@ -161,54 +161,54 @@
                              Foreground="#000000" BorderBrush="#FF6A6A6A"
                              BorderThickness="1" TextChanged="BarcodeTextBox_TextChanged" TabIndex="2"/>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="会員ID" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Grid.ColumnSpan="2" Margin="0,12,662,0">
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="会員ID" FontSize="30" FontWeight="Bold" Grid.ColumnSpan="2" Margin="0,12,662,3">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="Black"/>
+                        <SolidColorBrush Color="#809ACD32"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFD700"/>
+                        <SolidColorBrush Color="#FF8C00"/>
                     </TextBlock.Foreground>
                 </TextBlock>
                 <TextBox x:Name="MemberIDTextBox" Grid.Row="2" Grid.Column="1"
                          IsReadOnly="True" Height="45" Padding="5" FontSize="25"
-                         Margin="49,5,37,5" Background="#88000000"
-                         Foreground="#FFFFE0" BorderBrush="#FF6A6A6A"
+                         Margin="49,5,37,5" Background="#809ACD32"
+                         Foreground="#3E2F1D" BorderBrush="#FF6A6A6A"
                          BorderThickness="1" TabIndex="3"/>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="図書タイトル" VerticalAlignment="Center" FontSize="30" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="Black"/>
+                        <SolidColorBrush Color="#809ACD32"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFD700"/>
+                        <SolidColorBrush Color="#FF8C00"/>
                     </TextBlock.Foreground>
                 </TextBlock>
                 <TextBox x:Name="BookTitleTextBox" Grid.Row="3" Grid.Column="1"
                          IsReadOnly="True" Height="45" Padding="5" FontSize="25"
-                         Margin="49,5,37,5" Background="#88000000"
-                         Foreground="#FFFFE0" BorderBrush="#FF6A6A6A"
+                         Margin="49,5,37,5" Background="#809ACD32"
+                         Foreground="#3E2F1D" BorderBrush="#FF6A6A6A"
                          BorderThickness="1" TabIndex="4"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="著者名" VerticalAlignment="Center" FontSize="30" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="Black"/>
+                        <SolidColorBrush Color="#809ACD32"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFD700"/>
+                        <SolidColorBrush Color="#FF8C00"/>
                     </TextBlock.Foreground>
                 </TextBlock>
                 <TextBox x:Name="AuthorTextBox" Grid.Row="4" Grid.Column="1"
                          IsReadOnly="True" Height="45" Padding="5" FontSize="25"
-                         Margin="49,5,37,5" Background="#88000000"
-                         Foreground="#FFFFE0" BorderBrush="#FF6A6A6A"
+                         Margin="49,5,37,5" Background="#809ACD32"
+                         Foreground="#3E2F1D" BorderBrush="#FF6A6A6A"
                          BorderThickness="1" TabIndex="5"/>
 
                 <TextBlock Grid.Row="5" Grid.Column="0" Text="貸出日" VerticalAlignment="Center" FontSize="30" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="Black"/>
+                        <SolidColorBrush Color="#809ACD32"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFD700"/>
+                        <SolidColorBrush Color="#FF8C00"/>
                     </TextBlock.Foreground>
                 </TextBlock>
                 <DatePicker x:Name="LoanDatePicker" Grid.Row="5" Grid.Column="1"
@@ -217,10 +217,10 @@
 
                 <TextBlock Grid.Row="6" Grid.Column="0" Text="返却期限" VerticalAlignment="Center" FontSize="30" FontWeight="Bold">
                     <TextBlock.Background>
-                        <SolidColorBrush Color="Black"/>
+                        <SolidColorBrush Color="#809ACD32"/>
                     </TextBlock.Background>
                     <TextBlock.Foreground>
-                        <SolidColorBrush Color="#FFD700"/>
+                        <SolidColorBrush Color="#FF8C00"/>
                     </TextBlock.Foreground>
                 </TextBlock>
                 <DatePicker x:Name="ReturnDeadlinePicker" Grid.Row="6"
@@ -240,10 +240,10 @@
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#80F5F5DC"/>
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#805A3E2B"/>
                                 </Trigger>
                                 <Trigger Property="IsPressed" Value="True">
-                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#80F5F5DC"/>
+                                    <Setter TargetName="PART_ButtonBackground" Property="Background" Value="#805A3E2B"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

@@ -172,5 +172,9 @@ namespace BookLendingSystem {
                 cmd.ExecuteNonQuery();
             }
         }
+
+        private void BarcodeTextBox_TextChanged(object sender, TextChangedEventArgs e) {
+
+        }
     }
 }
