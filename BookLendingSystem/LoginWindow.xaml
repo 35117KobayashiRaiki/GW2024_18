@@ -18,9 +18,6 @@
             <Grid Width="900" Height="700">
                 <!-- 図書館名 -->
                 <TextBlock Text="太田アカデミー図書館" FontSize="82" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,4,0,0">
-                    <TextBlock.Background>
-                        <SolidColorBrush Color="#809ACD32"/>
-                    </TextBlock.Background>
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="#FF8C00"/>
                     </TextBlock.Foreground>
@@ -28,9 +25,6 @@
 
                 <!-- 図書館名のアルファベット -->
                 <TextBlock Text="ota academy library" FontSize="42" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,126,0,0">
-                    <TextBlock.Background>
-                        <SolidColorBrush Color="#809ACD32"/>
-                    </TextBlock.Background>
                     <TextBlock.Foreground>
                         <SolidColorBrush Color="#FF8C00"/>
                     </TextBlock.Foreground>
