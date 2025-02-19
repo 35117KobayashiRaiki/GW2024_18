@@ -148,7 +148,7 @@
                              BorderBrush="#FF6A6A6A" BorderThickness="1"
                              TextChanged="ISBNTextBox_TextChanged" TabIndex="1"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="バーコード番号" VerticalAlignment="Center" FontSize="30" FontWeight="Bold">
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="会員番号" VerticalAlignment="Center" FontSize="30" FontWeight="Bold">
                     <TextBlock.Background>
                         <SolidColorBrush Color="#809ACD32"/>
                     </TextBlock.Background>

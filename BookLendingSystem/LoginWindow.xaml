@@ -49,7 +49,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- バーコード入力 -->
-                    <TextBlock Text="会員バーコード" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" Grid.Column="0" Height="54">
+                    <TextBlock Text="会員番号" FontSize="40" FontWeight="Bold" VerticalAlignment="Center" Grid.Column="0" Height="54">
                         <TextBlock.Background>
                             <SolidColorBrush Color="#809ACD32"/>
                         </TextBlock.Background>
